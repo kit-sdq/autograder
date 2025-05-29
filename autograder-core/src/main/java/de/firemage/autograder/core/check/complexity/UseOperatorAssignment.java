@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 
 @ExecutableCheck(reportedProblems = {ProblemType.USE_OPERATOR_ASSIGNMENT})
-
 public class UseOperatorAssignment extends IntegratedCheck {
     private static final List<Class<?>> NON_COMMUTATIVE_TYPES = List.of(
         java.lang.String.class
@@ -100,6 +99,11 @@ public class UseOperatorAssignment extends IntegratedCheck {
                     // <lhs> = <right> <op> <left>
 
                     simplifiedExpr = "%s %s= %s".formatted(lhs, OperatorHelper.getOperatorText(operator), left);
+                } else if (
+                    // The expression str1 = str1 + str2 + str3 is given as str1 = (str1 + str2) + str3
+                    TypeUtil.isTypeEqualTo(lhs.getType(), String.class)
+                        && operator == BinaryOperatorKind.PLUS) {
+
                 }
 
                 if (simplifiedExpr != null) {
