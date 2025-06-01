@@ -99,11 +99,6 @@ public class UseOperatorAssignment extends IntegratedCheck {
                     // <lhs> = <right> <op> <left>
 
                     simplifiedExpr = "%s %s= %s".formatted(lhs, OperatorHelper.getOperatorText(operator), left);
-                } else if (
-                    // The expression str1 = str1 + str2 + str3 is given as str1 = (str1 + str2) + str3
-                    TypeUtil.isTypeEqualTo(lhs.getType(), String.class)
-                        && operator == BinaryOperatorKind.PLUS) {
-
                 }
 
                 if (simplifiedExpr != null) {
