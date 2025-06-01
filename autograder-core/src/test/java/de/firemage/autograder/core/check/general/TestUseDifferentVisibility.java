@@ -704,4 +704,100 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
 
         problems.assertExhausted();
     }
+
+
+    @Test
+    void testEnumWithPrivateInterface() throws LinterException, IOException {
+        ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
+            JavaVersion.JAVA_17,
+            Map.ofEntries(
+                Map.entry(
+                    "Main",
+                    """
+                        public class Main {
+                            public static void main(String[] args) {
+                                Command.call();
+                            }
+                        }
+                        """
+                ),
+                Map.entry(
+                    "Command",
+                    """
+                    enum Command {
+                        START_SESSION(() -> { System.out.println("Started Session"); }),
+                        END_SESSION(() -> { System.out.println("Ended Session"); });
+
+                        private final CommandInterface commandInterface;
+                        
+                        Command(CommandInterface commandInterface) {
+                            this.commandInterface = commandInterface;
+                        }
+
+                        static void call() {
+                            for (var value : Command.values()) {
+                                value.commandInterface.execute();
+                            }
+                        }
+                        
+                        @FunctionalInterface
+                        private interface CommandInterface {
+                            void execute();
+                        }
+                    }
+                    """
+                )
+            )
+        ), PROBLEM_TYPES);
+
+        problems.assertExhausted();
+    }
+
+
+    @Test
+    void testEnumWithPrivateInterfaceIndirectCall() throws LinterException, IOException {
+        ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
+            JavaVersion.JAVA_17,
+            Map.ofEntries(
+                Map.entry(
+                    "Main",
+                    """
+                        public class Main {
+                            public static void main(String[] args) {
+                                Command.call();
+                            }
+                        }
+                        """
+                ),
+                Map.entry(
+                    "Command",
+                    """
+                    enum Command {
+                        START_SESSION(Command::call),
+                        END_SESSION(Command::call);
+
+                        private final CommandInterface commandInterface;
+                        
+                        Command(CommandInterface commandInterface) {
+                            this.commandInterface = commandInterface;
+                        }
+
+                        static void call() {
+                            for (var value : Command.values()) {
+                                value.commandInterface.execute();
+                            }
+                        }
+                        
+                        @FunctionalInterface
+                        private interface CommandInterface {
+                            void execute();
+                        }
+                    }
+                    """
+                )
+            )
+        ), PROBLEM_TYPES);
+
+        problems.assertExhausted();
+    }
 }
