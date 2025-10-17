@@ -58,9 +58,14 @@
         <fluent.version>0.70</fluent.version>
         <reflections.version>0.10.2</reflections.version>
         <javaparser.version>3.26.3</javaparser.version>
-
-        <revision>0.5.13</revision>
     </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
