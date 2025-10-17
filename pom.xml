@@ -5,13 +5,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.firemage.autograder</groupId>
+    <groupId>edu.kit.kastel.sdq</groupId>
     <artifactId>autograder-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.8.10</version>
+    <version>${revision}</version>
     <name>Autograder</name>
     <description>Automatic assessment of student code submissions</description>
-    <url>https://github.com/Feuermagier/autograder</url>
+    <url>https://github.com/kit-sdq/autograder</url>
 
     <licenses>
         <license>
@@ -30,9 +30,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/Feuermagier/autograder.git</connection>
-        <developerConnection>scm:git:ssh://github.com:Feuermagier/autograder.git</developerConnection>
-        <url>https://github.com/Feuermagier/autograder/tree/main</url>
+        <connection>scm:git:git://github.com/kit-sdq/autograder.git</connection>
+        <developerConnection>scm:git:ssh://github.com:kit-sdq/autograder.git</developerConnection>
+        <url>https://github.com/kit-sdq/autograder/tree/main</url>
     </scm>
 
     <!--
@@ -46,7 +46,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+        <revision>0.7.0-SNAPSHOT</revision>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -87,34 +87,34 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-api</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-core</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-cmd</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-treeg</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-span</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>de.firemage.autograder</groupId>
+                <groupId>edu.kit.kastel.sdq</groupId>
                 <artifactId>autograder-extra</artifactId>
-                <version>6.8.10</version>
+                <version>${revision}</version>
             </dependency>
 
             <dependency>
@@ -226,14 +226,43 @@
 
 
     <profiles>
+
         <profile>
-            <id>release</id>
-            <properties>
-                <!-- Stage to local file - jreleaser wants this-->
-                <altDeploymentRepository>local::file:./target/staging-deploy</altDeploymentRepository>
-            </properties>
+            <id>deployment</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <keyname>14DA6A1F80CAF455AD22D05F85FEBF9A6241248C</keyname>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.9.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
+                            <deploymentName>autograder</deploymentName>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -265,16 +294,7 @@
                     </plugin>
                 </plugins>
             </build>
-            <modules>
-                <module>autograder-api</module>
-                <module>autograder-core</module>
-                <module>autograder-cmd</module>
-                <module>autograder-treeg</module>
-                <module>autograder-span</module>
-                <module>autograder-extra</module>
-            </modules>
         </profile>
-
         <profile>
             <id>module-defaults</id>
             <activation>

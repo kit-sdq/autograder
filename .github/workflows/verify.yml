@@ -1,42 +1,23 @@
 name: Maven Verify
 
 on:
-  push:
-    branches-ignore:
-      - main
+  push: # Ignore releases and main dev branch
+    tags-ignore:
+      - 'v*'
+    branches:
+      - '**'
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    types: [opened, synchronize, reopened]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  pre_job:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
-    steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          concurrent_skipping: 'same_content_newer'
-          skip_after_successful_duplicate: 'true'
-
-  build:
-    needs: pre_job
-    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-      - uses: joshlong/java-version-export-github-action@v28
-        id: jve
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: ${{ steps.jve.outputs.java_major_version }}
-          cache: 'maven'
-      - name: Verify with Maven
-        run: mvn -B verify --file pom.xml
+  verify:
+    uses: kit-sdq/actions/.github/workflows/maven.yml@main
+    with:
+      deploy: false
+    secrets:
+      CENTRAL_USER: ""
+      CENTRAL_TOKEN: ""
+      GPG_KEY: ""

@@ -1,63 +1,43 @@
-name: Release
-
+name: Create Release
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version'
-        required: true
+  push:
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: Maven Central Release
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
-          # this is by default 1, but this is required
-          # to generate the changelog from commit messages
           fetch-depth: 0
-          submodules: true
-      - uses: joshlong/java-version-export-github-action@v28
-        id: jve
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: ${{ steps.jve.outputs.java_major_version }}
-          cache: 'maven'
-      # add a commit with the new version:
-      - name: Version
-        id: vars
+          java-version: 21
+      - name: Build with Maven
+        run: mvn -U -B package
+
+      - name: Create Changelog
         shell: bash
         run: |
-          VERSION=${{ github.event.inputs.version }}
-          mvn -B versions:set versions:commit -DnewVersion=$VERSION
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Action"
-          git pull
-          git commit --allow-empty -a -m "release version v$VERSION"
-          git push origin main
-      - name: Deploy with Maven
-        run: mvn -B deploy -DskipTests -Prelease --file pom.xml
-      - name: Release
-        uses: jreleaser/release-action@v2
+          DIFF=$(git log $(git tag --sort=-creatordate | sed '2q;d')..HEAD --oneline)
+          if [ -z "$DIFF" ]; then
+            echo "Defaulting to full log"
+            DIFF=$(git log --oneline)
+          fi
+          echo "# Commits since last release" > CHANGELOG.txt
+          echo "$DIFF" | sed 's/^/* /' | sed '/Auto-Update Dependencies/{s/Updated/\n\t* Updated/g}' | sed '/\[maven-release-plugin\]/d' | sed -r '/.*\(#\w+\)$/d' >> CHANGELOG.txt
+          
+      - uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/v')
         with:
-          arguments: full-release
-        env:
-          JRELEASER_PROJECT_VERSION: ${{ github.event.inputs.version }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.JRELEASER_GPG_PUBLIC_KEY }}
-          JRELEASER_GPG_SECRET_KEY: ${{ secrets.JRELEASER_GPG_SECRET_KEY }}
-          JRELEASER_GPG_PASSPHRASE: ${{ secrets.JRELEASER_GPG_PASSPHRASE }}
-          JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_SONATYPE_USERNAME: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_USERNAME }}
-          JRELEASER_DEPLOY_MAVEN_MAVENCENTRAL_SONATYPE_TOKEN: ${{ secrets.JRELEASER_NEXUS2_MAVEN_CENTRAL_PASSWORD }}
-      - name: JReleaser output
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: jreleaser-release
-          path: |
-            out/jreleaser/trace.log
-            out/jreleaser/output.properties
+          body_path: CHANGELOG.txt
+          generate_release_notes: true
+          files: |
+            autograder-cmd/target/autograder-cmd.jar

@@ -1,0 +1,67 @@
+name: Maven Deploy
+
+on:
+  push:
+    branches:
+      - 'main' # Build the latest develop-SNAPSHOT
+    paths:
+      - '**/src/**'
+      - '**/pom.xml'
+      - 'pom.xml'
+      
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  pre_job:
+    name: "Check for duplicate jobs"
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          concurrent_skipping: 'same_content_newer'
+          skip_after_successful_duplicate: 'true'
+          
+  build:
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    name: "Build and/or Deploy"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        fetch-depth: 0
+
+    - uses: joshlong/java-version-export-github-action@v28
+      id: jve   
+
+    - name: Java without Cache
+      uses: actions/setup-java@v5
+      with:
+        java-version: ${{ steps.jve.outputs.java_major_version }}
+        distribution: 'temurin'
+
+    - name: Maven Verify
+      shell: bash
+      run: mvn -U -B verify
+
+    - name: Set maven settings.xml
+      uses: whelk-io/maven-settings-xml-action@v22
+      with:
+        servers: '[{ "id": "central", "username": "${{ secrets.CENTRAL_USER }}", "password": "${{ secrets.CENTRAL_TOKEN }}" }]'
+
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v6
+      with:
+        gpg_private_key: ${{ secrets.GPG_KEY }}
+
+    - name: Publish Package
+      shell: bash
+      run: mvn -DskipTests -P deployment -U -B deploy
