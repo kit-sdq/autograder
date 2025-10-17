@@ -299,6 +299,14 @@
                     </plugin>
                 </plugins>
             </build>
+            <modules>
+                <module>autograder-api</module>
+                <module>autograder-core</module>
+                <module>autograder-cmd</module>
+                <module>autograder-treeg</module>
+                <module>autograder-span</module>
+                <module>autograder-extra</module>
+            </modules>
         </profile>
         <profile>
             <id>module-defaults</id>
