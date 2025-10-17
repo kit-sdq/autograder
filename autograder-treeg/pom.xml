@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>autograder-parent</artifactId>
-        <groupId>de.firemage.autograder</groupId>
-        <version>6.8.9</version>
+        <groupId>edu.kit.kastel.sdq</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autograder-treeg</artifactId>
     <name>autograder-treeg</name>
     <description>Regex Parsing for the Autograder</description>
-    <url>https://github.com/Feuermagier/autograder/autograder-treeg</url>
+    <url>https://github.com/kit-sdq/autograder/autograder-treeg</url>
 </project>

@@ -17,8 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Files;
 
 public class AutograderLoader {
-    private static final String AUTOGRADER_DOWNLOAD_URL = "https://github.com/Feuermagier/autograder/releases/latest/download/autograder-cmd.jar";
-    private static final String AUTOGRADER_RELEASE_PATH = "https://github.com/Feuermagier/autograder/releases/latest";
+    private static final String AUTOGRADER_DOWNLOAD_URL = "https://github.com/kit-sdq/autograder/releases/latest/download/autograder-cmd.jar";
+    private static final String AUTOGRADER_RELEASE_PATH = "https://github.com/kit-sdq/autograder/releases/latest";
 
     private static final Logger LOG = LoggerFactory.getLogger(AutograderLoader.class);
 

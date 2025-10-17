@@ -4,20 +4,20 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>autograder-parent</artifactId>
-        <groupId>de.firemage.autograder</groupId>
-        <version>6.8.9</version>
+        <groupId>edu.kit.kastel.sdq</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autograder-core</artifactId>
     <name>autograder-core</name>
     <description>Core checks of the autograder</description>
-    <url>https://github.com/Feuermagier/autograder/autograder-core</url>
+    <url>https://github.com/kit-sdq/autograder/autograder-core</url>
 
     <dependencies>
         <!-- Internal -->
         <dependency>
-            <groupId>de.firemage.autograder</groupId>
+            <groupId>edu.kit.kastel.sdq</groupId>
             <artifactId>autograder-api</artifactId>
         </dependency>
 

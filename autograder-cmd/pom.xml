@@ -4,15 +4,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>autograder-parent</artifactId>
-        <groupId>de.firemage.autograder</groupId>
-        <version>6.8.9</version>
+        <groupId>edu.kit.kastel.sdq</groupId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autograder-cmd</artifactId>
     <name>autograder-cmd</name>
     <description>CLI for the Autograder</description>
-    <url>https://github.com/Feuermagier/autograder/autograder-cmd</url>
+    <url>https://github.com/kit-sdq/autograder/autograder-cmd</url>
 
     <properties>
         <picocli.version>4.7.6</picocli.version>
@@ -21,19 +21,19 @@
     <dependencies>
         <!-- Internal -->
         <dependency>
-            <groupId>de.firemage.autograder</groupId>
+            <groupId>edu.kit.kastel.sdq</groupId>
             <artifactId>autograder-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.firemage.autograder</groupId>
+            <groupId>edu.kit.kastel.sdq</groupId>
             <artifactId>autograder-span</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.firemage.autograder</groupId>
+            <groupId>edu.kit.kastel.sdq</groupId>
             <artifactId>autograder-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.firemage.autograder</groupId>
+            <groupId>edu.kit.kastel.sdq</groupId>
             <artifactId>autograder-extra</artifactId>
         </dependency>
 
