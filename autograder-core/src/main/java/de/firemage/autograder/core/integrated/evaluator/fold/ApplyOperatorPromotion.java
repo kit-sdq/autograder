@@ -80,7 +80,6 @@ public final class ApplyOperatorPromotion implements Fold {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <T> CtExpression<T> foldCtUnaryOperator(CtUnaryOperator<T> ctUnaryOperator) {
         CtTypeReference<?> promotedType = OperatorHelper.getPromotedType(
             ctUnaryOperator.getKind(),
@@ -92,7 +91,7 @@ public final class ApplyOperatorPromotion implements Fold {
         }
 
         if (this.shouldApplyOnUnaryOperator.shouldApplyOn(ctUnaryOperator, ctUnaryOperator.getOperand())) {
-            ctUnaryOperator.setOperand((CtExpression<T>) ExpressionUtil.castExpression(promotedType, ctUnaryOperator.getOperand()));
+            ctUnaryOperator.setOperand(ExpressionUtil.castExpression(promotedType, ctUnaryOperator.getOperand()));
         }
 
         return ctUnaryOperator;

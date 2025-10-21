@@ -397,4 +397,29 @@ class TestRedundantIfForBooleanCheck extends AbstractCheckTest {
 
         problems.assertExhausted();
     }
+
+
+    @Test
+    void testEqualWithGeneric() throws IOException, LinterException {
+        ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
+            JavaVersion.JAVA_17,
+            "Test",
+            """
+                public class Test {
+                    private String patternComparator;
+
+                    private <S> boolean isInvalidPrecondition(S value) {
+                        if (value == null) {
+                            return true;
+                        }
+                        return value == patternComparator;
+                    }
+                }
+                """
+        ), PROBLEM_TYPES);
+
+        assertEqualsRedundant(problems.next(), "return value == null || value == patternComparator");
+
+        problems.assertExhausted();
+    }
 }

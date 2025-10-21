@@ -545,7 +545,7 @@ public final class ExpressionUtil {
 
         List<CtTypeReference<?>> typeCasts = ctExpression.getTypeCasts();
         if (!typeCasts.isEmpty()) {
-            result = typeCasts.get(0);
+            return typeCasts.getFirst();
         }
 
         return result;

@@ -194,7 +194,7 @@ class TestEvaluator {
             " f - 0.001           ; float f      ; f - 0.001            ",
             " f - 0.0             ; float f      ; (double) f           ",
             " 0 - b               ; byte b       ; 0 - b                ",
-            " 0 - b - 0           ; byte b       ; 0 - (int) b          ",
+            " 0 - b - 0           ; byte b       ; 0 - b                ",
             " f - 0 - 0           ; float f      ; f                    ",
             " 0.0 - f             ; float f      ; 0.0 - f              ",
         }

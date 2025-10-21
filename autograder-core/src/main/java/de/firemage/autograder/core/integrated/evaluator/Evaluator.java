@@ -1,5 +1,6 @@
 package de.firemage.autograder.core.integrated.evaluator;
 
+import de.firemage.autograder.core.integrated.evaluator.algebra.ApplyShortCircuit;
 import de.firemage.autograder.core.integrated.evaluator.fold.ChainedFold;
 import de.firemage.autograder.core.integrated.evaluator.fold.DeduplicateOperatorApplication;
 import de.firemage.autograder.core.integrated.evaluator.fold.EvaluateLiteralOperations;
@@ -27,6 +28,7 @@ public class Evaluator extends CtScanner implements PartialEvaluator {
         this(InferOperatorTypes.create(),
             InlineVariableRead.create(),
             DeduplicateOperatorApplication.create(),
+            ApplyShortCircuit.create(),
             EvaluatePartialLiteralOperations.create(),
             EvaluateLiteralOperations.create()
         );

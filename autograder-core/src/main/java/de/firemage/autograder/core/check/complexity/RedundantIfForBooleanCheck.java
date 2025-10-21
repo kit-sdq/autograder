@@ -12,6 +12,7 @@ import de.firemage.autograder.core.integrated.effects.AssignmentEffect;
 import de.firemage.autograder.core.integrated.effects.Effect;
 import de.firemage.autograder.core.integrated.evaluator.Evaluator;
 import de.firemage.autograder.core.integrated.evaluator.algebra.ApplyAbsorptionLaw;
+import de.firemage.autograder.core.integrated.evaluator.algebra.ApplyShortCircuit;
 import de.firemage.autograder.core.integrated.evaluator.fold.EvaluateLiteralOperations;
 import de.firemage.autograder.core.integrated.evaluator.fold.EvaluatePartialLiteralOperations;
 import spoon.processing.AbstractProcessor;
@@ -84,6 +85,7 @@ public class RedundantIfForBooleanCheck extends IntegratedCheck {
         // The following code will apply these simplifications to the suggestion.
 
         Evaluator evaluator = new Evaluator(
+            ApplyShortCircuit.create(),
             EvaluateLiteralOperations.create(),
             EvaluatePartialLiteralOperations.create(),
             ApplyAbsorptionLaw.create()
