@@ -74,7 +74,7 @@ javadoc-undocumented-throws = The exception {$exp} is thrown, but not mentioned 
 todo-comment = TODOs should not be in the final submission.
 
 # Complexity
-use-diamond-operator = The types specified in the '< A, B, ... >' can be remove, use '<>' instead.
+use-diamond-operator = The types specified in '{$type}' can be remove, use '<>' instead.
 
 extends-object = Explicitly extending 'Object' is unnecessary
 

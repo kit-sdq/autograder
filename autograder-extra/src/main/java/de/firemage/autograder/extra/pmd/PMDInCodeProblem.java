@@ -10,8 +10,7 @@ import net.sourceforge.pmd.reporting.RuleViolation;
 import java.nio.file.Path;
 
 public class PMDInCodeProblem extends Problem {
-
-    public PMDInCodeProblem(PMDCheck check, RuleViolation violation, SourceInfo sourceInfo) {
+    PMDInCodeProblem(PMDCheck check, RuleViolation violation, SourceInfo sourceInfo, ProblemRenderer renderer) {
         super(check,
                 new CodePosition(
                         sourceInfo,
@@ -21,7 +20,7 @@ public class PMDInCodeProblem extends Problem {
                         violation.getBeginColumn(),
                         violation.getBeginColumn()),
                 new LocalizedMessageForProblem(
-                        check.getExplanation() != null ? check.getExplanation().apply(violation) : new LocalizedMessage(violation.getDescription()),
+                        check.getExplanation() != null ? check.getExplanation().apply(renderer, violation) : new LocalizedMessage(violation.getDescription()),
                         check.getProblemType()),
                 check.getProblemType());
     }
