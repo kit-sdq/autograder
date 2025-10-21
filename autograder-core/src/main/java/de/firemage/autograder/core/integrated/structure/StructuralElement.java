@@ -12,11 +12,12 @@ public record StructuralElement<T extends CtElement>(T element) {
         if (this == otherObject) {
             return true;
         }
-        if (!(otherObject instanceof StructuralElement<?> otherStructuralElement)) {
+
+        if (!(otherObject instanceof StructuralElement<?>(var otherElement))) {
             return false;
         }
 
-        return StructuralEqualsVisitor.equals(this.element, otherStructuralElement.element);
+        return StructuralEqualsVisitor.equals(this.element, otherElement);
     }
 
     @Override

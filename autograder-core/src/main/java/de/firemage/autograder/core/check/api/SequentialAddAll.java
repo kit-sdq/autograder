@@ -91,7 +91,7 @@ public class SequentialAddAll extends IntegratedCheck {
 
         if (ctEnum != null && UseEnumValues.checkEnumValues(ctEnum, TypeUtil.isOrderedCollection(ctVariable.getType()), fieldReads)) {
             addLocalProblem(
-                values.get(0).getParent(CtStatement.class),
+                values.getFirst().getParent(CtStatement.class),
                 new LocalizedMessage(
                     "common-reimplementation",
                     Map.of(
@@ -138,12 +138,12 @@ public class SequentialAddAll extends IntegratedCheck {
         }
 
         addLocalProblem(
-            values.get(0).getParent(CtStatement.class),
+            values.getFirst().getParent(CtStatement.class),
             new LocalizedMessage(
                 "common-reimplementation",
                 Map.of(
                     "suggestion", "private static final List<%s> SOME_GOOD_NAME = List.of(%s); /* ... */ %s.addAll(SOME_GOOD_NAME)".formatted(
-                        ExpressionUtil.getExpressionType(values.get(0)),
+                        ExpressionUtil.getExpressionType(values.getFirst()),
                         values.stream()
                             .map(CtElement::toString)
                             .collect(Collectors.joining(", ")),

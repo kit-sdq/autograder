@@ -101,7 +101,7 @@ public final class Linter implements AbstractLinter {
 
         for (var entry : problemsByLine.entrySet()) {
             if (entry.getValue().size() == 1) {
-                result.add(entry.getValue().get(0));
+                result.add(entry.getValue().getFirst());
                 continue;
             }
 
