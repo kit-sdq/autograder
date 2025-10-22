@@ -6,6 +6,7 @@ import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtLiteral;
+import spoon.reflect.code.CtOperatorAssignment;
 import spoon.reflect.code.CtUnaryOperator;
 import spoon.reflect.code.UnaryOperatorKind;
 import spoon.reflect.declaration.CtMethod;
@@ -15,7 +16,7 @@ import spoon.reflect.reference.CtTypeReference;
 import java.util.Arrays;
 import java.util.List;
 
-public class FactoryUtil {
+public final class FactoryUtil {
     private FactoryUtil() {
     }
 
@@ -78,6 +79,36 @@ public class FactoryUtil {
 
         return ctUnaryOperator;
     }
+
+    /**
+     * Creates an operator assignment for the given left-hand side and right-hand side expressions.
+     *
+     * @param lhs the left-hand side expression, which the right-hand side is assigned to
+     * @param rhs the right-hand side expression, which is assigned to the left-hand side
+     * @param operatorKind the operator kind to use for the assignment
+     * @param <T> the type of the left-hand side expression
+     * @param <A> the type of the right-hand side expression
+     * @return a new operator assignment
+     */
+    @SuppressWarnings({"unchecked","rawtypes"})
+    public static <T, A extends T> CtOperatorAssignment<T, A> createOperatorAssignment(
+        CtExpression<?> lhs,
+        CtExpression<?> rhs,
+        BinaryOperatorKind operatorKind
+    ) {
+        CtOperatorAssignment ctOperatorAssignment = lhs.getFactory().createOperatorAssignment();
+
+        ctOperatorAssignment.setAssigned(lhs.clone());
+        ctOperatorAssignment.setKind(operatorKind);
+        ctOperatorAssignment.setAssignment(rhs.clone());
+
+        if (ctOperatorAssignment.getType() == null) {
+            ctOperatorAssignment.setType(rhs.getType().clone());
+        }
+
+        return ctOperatorAssignment;
+    }
+
 
     /**
      * Creates a static invocation of the given method on the given target type.

@@ -7,7 +7,6 @@ import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -50,15 +49,17 @@ class TestUseOperatorAssignment extends AbstractCheckTest {
             " arr[0] = arr[0] + 1 | int[] arr             | arr[0] += 1  ",
             " arr[0] = arr[1] + 1 | int[] arr             |              ",
             " a = a - b + c       | int a, int b, int c   |              ",
-            " a = b - c + a       | int a, int b, int c   | a += (b - c) ",
-            " a = (b + c) * a     | int a, int b, int c   | a *= (b + c) ",
+            " a = b - c + a       | int a, int b, int c   | a += b - c   ",
+            " a = (b + c) * a     | int a, int b, int c   | a *= b + c   ",
             " a = b + c * a       | int a, int b, int c   |              ",
             " a = b - a + c       | int a, int b, int c   |              ",
             " a = a + b + c - b   | int a, int b, int c   |              ",
             " s = s + \" \"       | String s              | s += \" \"   ",
             " s = \" \" + s       | String s              |              ",
-            // TODO: this one is not recognized:
-            //" s = s + s + s       | String s              | s += s + s   ",
+            " s = s + s + s       | String s              | s += s + s   ",
+            " s1 = s2 + s1 + s2   | String s1, String s2  |              ",
+            " s1 = s1 + s2 + s2   | String s1, String s2  | s1 += s2 + s2",
+            " s1 = s2 + s2 + s1   | String s1, String s2  |              ",
         }
     )
     void testDifferentTypes(String expression, String arguments, String expected) throws IOException, LinterException {
