@@ -50,6 +50,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // What should be supported:
 // - Any mutable collection (List, Set, Map, ...)
@@ -241,9 +242,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
 
         boolean foundPreviousAssignment = false;
         CtStatement currentStatement = ctVariableRead.getParent(CtStatement.class);
-        var reversedStatements = new ArrayList<>(StatementUtil.getEffectiveStatements(ctExecutable.getBody()));
-        Collections.reverse(reversedStatements);
-        for (CtStatement ctStatement : reversedStatements) {
+        for (CtStatement ctStatement : StatementUtil.getEffectiveStatements(ctExecutable.getBody()).reversed()) {
             if (!foundPreviousAssignment) {
                 if (ctStatement == currentStatement) {
                     foundPreviousAssignment = true;
@@ -282,7 +281,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
             List<CtExpression<?>> previousAssignees = findPreviousAssignee(ctVariableRead);
 
             if (!previousAssignees.isEmpty()) {
-                return findParameterReference(previousAssignees.get(0), ctExecutable);
+                return findParameterReference(previousAssignees.getFirst(), ctExecutable);
             }
 
             return Option.some((CtParameter<?>) ctVariableDeclaration);
@@ -306,16 +305,16 @@ public class LeakedCollectionCheck extends IntegratedCheck {
 
         if (statements.isEmpty()
             // we should not check private methods (for those it should be okay to return a not-copied collection)
-            || (ctExecutable instanceof CtModifiable ctModifiable && ctModifiable.isPrivate())) {
+            || ctExecutable instanceof CtModifiable ctModifiable && ctModifiable.isPrivate()) {
             return;
         }
 
         List<CtReturn> returns = statements.stream().flatMap(ctStatement -> {
             if (ctStatement instanceof CtReturn<?> ctReturn) {
-                return List.of(ctReturn).stream();
-            } else {
-                return ctStatement.filterChildren(new TypeFilter<>(CtReturn.class)).list(CtReturn.class).stream();
+                return Stream.of(ctReturn);
             }
+
+            return ctStatement.filterChildren(new TypeFilter<>(CtReturn.class)).list(CtReturn.class).stream();
         }).toList();
 
         for (CtReturn<?> ctReturn : returns) {
@@ -423,11 +422,14 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                 }
 
                 for (CtTypeMember ctTypeMember : ctType.getTypeMembers()) {
-                    if (ctTypeMember instanceof CtConstructor<?> ctConstructor) {
-                        checkCtExecutableAssign(ctConstructor);
-                    } else if (ctTypeMember instanceof CtMethod<?> ctMethod) {
-                        checkCtExecutableReturn(ctMethod);
-                        checkCtExecutableAssign(ctMethod);
+                    switch (ctTypeMember) {
+                        case CtConstructor<?> ctConstructor -> checkCtExecutableAssign(ctConstructor);
+                        case CtMethod<?> ctMethod -> {
+                            checkCtExecutableReturn(ctMethod);
+                            checkCtExecutableAssign(ctMethod);
+                        }
+                        default -> {
+                        }
                     }
                 }
             }

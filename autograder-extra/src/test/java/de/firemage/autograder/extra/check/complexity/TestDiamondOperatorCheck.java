@@ -20,10 +20,11 @@ class TestDiamondOperatorCheck extends AbstractCheckTest {
         ProblemType.UNUSED_DIAMOND_OPERATOR
     );
 
-    void assertRedundantDiamondOperator(Problem problem) {
+    void assertRedundantDiamondOperator(Problem problem, String typeArgument) {
         assertEquals(
             this.linter.translateMessage(new LocalizedMessage(
-                "use-diamond-operator"
+                "use-diamond-operator",
+                Map.of("type", typeArgument)
             )),
             this.linter.translateMessage(problem.getExplanation())
         );
@@ -50,7 +51,7 @@ class TestDiamondOperatorCheck extends AbstractCheckTest {
             )
         ), PROBLEM_TYPES);
 
-        assertRedundantDiamondOperator(problems.next());
+        assertRedundantDiamondOperator(problems.next(), "<String>");
 
         problems.assertExhausted();
     }
@@ -84,7 +85,7 @@ class TestDiamondOperatorCheck extends AbstractCheckTest {
             )
         ), PROBLEM_TYPES);
 
-        assertRedundantDiamondOperator(problems.next());
+        assertRedundantDiamondOperator(problems.next(), "<VegetableType, Integer>");
 
         problems.assertExhausted();
     }
@@ -122,7 +123,7 @@ class TestDiamondOperatorCheck extends AbstractCheckTest {
             )
         ), PROBLEM_TYPES);
 
-        assertRedundantDiamondOperator(problems.next());
+        assertRedundantDiamondOperator(problems.next(), "<A>");
 
         problems.assertExhausted();
     }

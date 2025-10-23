@@ -55,7 +55,7 @@ public class Application implements Callable<Integer> {
     @Parameters(index = "1", description = "The root folder which contains the files to check.")
     private Path file;
 
-    @Option(names = {"-j", "--java", "--java-version"}, defaultValue = "17", description = "Set the Java version.")
+    @Option(names = {"-j", "--java", "--java-version"}, defaultValue = "21", description = "Set the Java version.")
     private String javaVersion;
 
     @Option(names = {

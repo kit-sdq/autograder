@@ -1,5 +1,6 @@
 package de.firemage.autograder.core.integrated;
 
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.Translatable;
 import de.firemage.autograder.core.CodeLinter;
 import de.firemage.autograder.core.LinterStatus;
@@ -67,8 +68,9 @@ public class IntegratedAnalysis implements CodeLinter<IntegratedCheck> {
         UploadedFile submission,
         AbstractTempLocation tempLocation,
         ClassLoader classLoader,
-        List<IntegratedCheck> checks,
-        Consumer<Translatable> statusConsumer
+        List<? extends IntegratedCheck> checks,
+        Consumer<? super Translatable> statusConsumer,
+        Consumer<? super FailureInformation> failureConsumer
     ) {
         this.init(submission);
 
@@ -80,10 +82,17 @@ public class IntegratedAnalysis implements CodeLinter<IntegratedCheck> {
         List<Problem> result = new ArrayList<>();
         for (IntegratedCheck check : checks) {
             long beforeTime = System.nanoTime();
-            result.addAll(check.run(
-                this.staticAnalysis,
-                this.file.getSource()
-            ));
+            try {
+                result.addAll(check.run(
+                    this.staticAnalysis,
+                    this.file.getSource()
+                ));
+            } catch (Exception exception) {
+                failureConsumer.accept(new FailureInformation(
+                    check.getClass().getSimpleName(),
+                    exception
+                ));
+            }
             long afterTime = System.nanoTime();
             logger.info("Completed check " + check.getClass().getSimpleName() + " in " + ((afterTime - beforeTime) / 1_000_000 + "ms"));
             this.assertModelIntegrity(check.getClass().getSimpleName());

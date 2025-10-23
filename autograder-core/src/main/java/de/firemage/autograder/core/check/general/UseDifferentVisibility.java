@@ -14,6 +14,7 @@ import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtEnumValue;
 import spoon.reflect.declaration.CtField;
+import spoon.reflect.declaration.CtInterface;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtPackage;
@@ -62,6 +63,11 @@ public class UseDifferentVisibility extends IntegratedCheck {
 
     private static Visibility getVisibility(CtTypeMember ctTypeMember) {
         CtModel ctModel = ctTypeMember.getFactory().getModel();
+
+        if (ctTypeMember.getParent() instanceof CtInterface<?>) {
+            // in interfaces, all members are implicitly public
+            return Visibility.PUBLIC;
+        }
 
         Stream<CtElement> referencesStream = UsesFinder.getAllUses(ctTypeMember);
         if (ctTypeMember instanceof CtMethod<?> method) {

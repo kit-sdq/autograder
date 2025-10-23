@@ -14,7 +14,24 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public record CodePosition(SourceInfo sourceInfo, SourcePath file, int startLine, int endLine, int startColumn, int endColumn) implements AbstractCodePosition {
+public record CodePosition(SourceInfo sourceInfo, SourcePath file, int startLine, int endLine, int startColumn, int endColumn)
+    implements AbstractCodePosition {
+    public CodePosition {
+        // Spoon docs mention that it uses 1-based indexed columns, but for some reason it sometimes emits
+        // a column of 0. We just treat it as 1 in that case.
+        startColumn = Math.max(startColumn, 1);
+        endColumn = Math.max(endColumn, 1);
+
+        if (startLine < 1 || endLine < startLine) {
+            throw new IllegalArgumentException("invalid code position, expected line to be > 0 and start (%d:%d) <= end (%d:%d)".formatted(
+                startLine,
+                startColumn,
+                endLine,
+                endColumn
+            ));
+        }
+    }
+
     public static CodePosition fromSourcePosition(
         SourcePosition sourcePosition,
         CtElement ctElement,
@@ -36,7 +53,8 @@ public record CodePosition(SourceInfo sourceInfo, SourcePath file, int startLine
         // Instead of highlighting all lines of a class or method, only highlight the first line.
         //
         // Someone might explicitly specify a source position, in which case it will differ from the element's position.
-        if ((ctElement instanceof CtType<?> || ctElement instanceof CtMethod<?> || ctElement instanceof CtLoop || ctElement instanceof CtAbstractSwitch<?>) && ctElement.getPosition().equals(sourcePosition)) {
+        if ((ctElement instanceof CtType<?> || ctElement instanceof CtMethod<?> || ctElement instanceof CtLoop ||
+            ctElement instanceof CtAbstractSwitch<?>) && ctElement.getPosition().equals(sourcePosition)) {
             return new CodePosition(
                 sourceInfo,
                 relativePath,

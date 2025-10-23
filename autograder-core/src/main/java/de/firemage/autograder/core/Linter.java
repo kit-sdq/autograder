@@ -3,6 +3,7 @@ package de.firemage.autograder.core;
 import de.firemage.autograder.api.AbstractLinter;
 import de.firemage.autograder.api.AbstractProblemType;
 import de.firemage.autograder.api.CheckConfiguration;
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.api.Translatable;
@@ -56,22 +57,26 @@ public final class Linter implements AbstractLinter {
     }
 
     @Override
-    public List<Problem> checkFile(Path file, JavaVersion version, CheckConfiguration checkConfiguration, Consumer<Translatable> statusConsumer) throws LinterException, IOException {
+    public List<Problem> checkFileFallible(Path file, JavaVersion version, CheckConfiguration checkConfiguration,
+                                                             Consumer<Translatable> statusConsumer,
+                                                             Consumer<FailureInformation> failureConsumer)
+        throws LinterException, IOException {
         try (var uploadedFile = UploadedFile.build(file, version, this.tempLocation, statusConsumer, this.classLoader)) {
-            return this.checkFile(uploadedFile, checkConfiguration, statusConsumer);
+            return this.checkFileFallible(uploadedFile, checkConfiguration, statusConsumer, failureConsumer);
         }
     }
 
-    public List<Problem> checkFile(
+    public List<Problem> checkFileFallible(
         UploadedFile file,
         CheckConfiguration checkConfiguration,
-        Consumer<Translatable> statusConsumer
+        Consumer<Translatable> statusConsumer,
+        Consumer<FailureInformation> failureConsumer
     ) throws LinterException, IOException {
         var checks = this.findChecksForProblemTypes(checkConfiguration.problemsToReport());
-        return this.checkFile(file, checkConfiguration, checks, statusConsumer);
+        return this.checkFileFallible(file, checkConfiguration, checks, statusConsumer, failureConsumer);
     }
 
-    private static List<Problem> filterProblematicAnnotations(List<Problem> problems) {
+    private static List<Problem> filterProblematicAnnotations(Iterable<? extends Problem> problems) {
         // HACK: for the following issue:
         //       https://github.com/Feuermagier/autograder/issues/672
 
@@ -101,7 +106,7 @@ public final class Linter implements AbstractLinter {
 
         for (var entry : problemsByLine.entrySet()) {
             if (entry.getValue().size() == 1) {
-                result.add(entry.getValue().get(0));
+                result.add(entry.getValue().getFirst());
                 continue;
             }
 
@@ -132,7 +137,17 @@ public final class Linter implements AbstractLinter {
         CheckConfiguration checkConfiguration,
         Iterable<? extends Check> checks,
         Consumer<Translatable> statusConsumer
-    ) throws LinterException, IOException {
+    ) throws IOException {
+        return this.checkFileFallible(file, checkConfiguration, checks, statusConsumer, FailureInformation.failFastConsumer());
+    }
+
+    private List<Problem> checkFileFallible(
+        UploadedFile file,
+        CheckConfiguration checkConfiguration,
+        Iterable<? extends Check> checks,
+        Consumer<Translatable> statusConsumer,
+        Consumer<FailureInformation> failureConsumer
+    ) throws IOException {
         // the file is null if the student did not upload source code
         if (file == null) {
             return new ArrayList<>();
@@ -151,22 +166,6 @@ public final class Linter implements AbstractLinter {
             }
         }
 
-
-        // TODO: refactor AnalysisScheduler/AnalysisThread to be simpler/easier to understand
-        //
-        // The code has been disabled, because of the following issues:
-        // - Spoon Code does not like to be run in parallel
-        // - Having checks run in parallel, resulted in bugs that were hard to reproduce, because they depended on the order
-        //   in which the checks were run
-        // - Crashes resulted in the program looping/hanging, instead of exiting with the thrown exception
-        //
-        // The last issue was the one that made me disable the code, because it made debugging very hard, and
-        // it was not clear how to fix it. It looks like the code is reinventing the wheel, instead of using
-        // existing solutions like ExecutorService.
-        //
-        //AnalysisScheduler scheduler = new AnalysisScheduler(this.threads, classLoader);
-
-        // AnalysisResult result;
         List<Problem> unreducedProblems = new ArrayList<>();
         try (TempLocation tempLinterLocation = this.tempLocation.createTempDirectory("linter")) {
             for (var entry : linterChecks.entrySet()) {
@@ -175,26 +174,18 @@ public final class Linter implements AbstractLinter {
                 var associatedChecks = castUnsafe(entry.getValue(), targetCheckType);
 
                 // skip linting if there are no checks for this linter
-                // some linters might do stuff even if there are no checks
+                // some linters take a long time to start, even if there are no checks to run
                 if (associatedChecks.isEmpty()) {
                     continue;
                 }
 
-                /*scheduler.submitTask((s, reporter) -> {
-                    reporter.reportProblems(linter.lint(
-                        file,
-                        tempLinterLocation,
-                        this.classLoader,
-                        associatedChecks,
-                        statusConsumer
-                    ));
-                });*/
                 unreducedProblems.addAll(linter.lint(
                     file,
                     tempLinterLocation,
                     this.classLoader,
                     associatedChecks,
-                    statusConsumer
+                    statusConsumer,
+                    failureConsumer
                 ));
             }
         }

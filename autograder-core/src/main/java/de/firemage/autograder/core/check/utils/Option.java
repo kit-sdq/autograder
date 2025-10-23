@@ -33,11 +33,14 @@ public sealed interface Option<T> extends Iterable<T> permits Option.Some, Optio
     }
 
     default <U> Option<U> map(Function<T, U> function) {
-	    if (this instanceof Some<T> someValue) {
-            return new Some<>(function.apply(someValue.value));
-        } else if (this instanceof None<T>) {
+        if (this instanceof Some<T>(T value)) {
+            return new Some<>(function.apply(value));
+        }
+
+        if (this instanceof None<T>) {
             return new None<>();
         }
+
         throw new IllegalStateException();
     }
 
@@ -47,9 +50,11 @@ public sealed interface Option<T> extends Iterable<T> permits Option.Some, Optio
      * @return the value or null
      */
     default T nullable() {
-        if (this instanceof Some<T> someValue) {
-            return someValue.value;
-        } else if (this instanceof None<T>) {
+        if (this instanceof Some<T>(T value)) {
+            return value;
+        }
+
+        if (this instanceof None<T>) {
             return null;
         }
         throw new IllegalStateException();

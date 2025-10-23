@@ -92,6 +92,7 @@ record ErrorProneCompiler(JavaVersion javaVersion, AbstractTempLocation tempLoca
                     "-d", // write class files to a temporary directory
                     tempLocation.toPath().toString(),
                     "-XDcompilePolicy=simple",
+                    "--should-stop=ifError=FLOW",
                     Stream.concat(
                             Stream.of(
                                 "-Xplugin:ErrorProne",

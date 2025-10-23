@@ -15,6 +15,7 @@ import spoon.reflect.path.CtRole;
 import spoon.support.visitor.equals.EqualsVisitor;
 
 import java.util.LinkedHashSet;
+import java.util.SequencedSet;
 import java.util.Set;
 
 public final class StructuralEqualsVisitor extends EqualsVisitor {
@@ -25,12 +26,12 @@ public final class StructuralEqualsVisitor extends EqualsVisitor {
         CtRole.COMMENT, CtRole.COMMENT_CONTENT, CtRole.COMMENT_TAG, CtRole.COMMENT_TYPE
     );
 
-    private final Set<Difference> differences;
+    private final SequencedSet<Difference> differences;
 
     public record Difference(CtRole role, Object left, Object right) {}
 
-    public static Set<Difference> findDifferences(CtElement left, CtElement right) {
-        var visitor = new  StructuralEqualsVisitor();
+    public static SequencedSet<Difference> findDifferences(CtElement left, CtElement right) {
+        var visitor = new StructuralEqualsVisitor();
         visitor.checkEquals(left, right);
         return visitor.differences();
     }
@@ -117,7 +118,7 @@ public final class StructuralEqualsVisitor extends EqualsVisitor {
      *
      * @return the differences
      */
-    public Set<Difference> differences() {
+    public SequencedSet<Difference> differences() {
         return new LinkedHashSet<>(this.differences);
     }
 }

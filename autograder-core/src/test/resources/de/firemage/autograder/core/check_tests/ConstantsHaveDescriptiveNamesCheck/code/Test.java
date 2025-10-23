@@ -50,4 +50,8 @@ public class Test {
     private static final String REMOVE_COMMAND_NAME = "remove"; /*# ok #*/
     private static final String AI_COMMAND_SEPARATOR = ","; /*# ok #*/
     private static final String DEFAULT_SPACE_BETWEEN_XY = " "; /*# ok #*/
+
+    private static final String MULTIPLICATION_SIGN = "*"; /*# not ok #*/
+    private static final String MINUS_SIGN = "-"; /*# not ok #*/
+    private static final String EQUALS_SIGN = "="; /*# not ok #*/
 }

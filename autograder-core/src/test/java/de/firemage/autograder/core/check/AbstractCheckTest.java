@@ -3,6 +3,7 @@ package de.firemage.autograder.core.check;
 import de.firemage.autograder.api.AbstractLinter;
 import de.firemage.autograder.api.AbstractProblemType;
 import de.firemage.autograder.api.CheckConfiguration;
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.Linter;
 import de.firemage.autograder.core.Problem;
@@ -44,12 +45,13 @@ public abstract class AbstractCheckTest {
         SourceInfo sourceInfo,
         List<? extends AbstractProblemType> problemTypes
     ) throws LinterException, IOException {
-        return this.linter.checkFile(
+        return this.linter.checkFileFallible(
             UploadedFile.build(sourceInfo, this.tempLocation, status -> {
             }, null),
             CheckConfiguration.fromProblemTypes(problemTypes),
             status -> {
-            }
+            },
+            FailureInformation.failFastConsumer()
         );
     }
 

@@ -12,7 +12,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public interface AbstractLinter {
-    List<? extends AbstractProblem> checkFile(Path file, JavaVersion version, CheckConfiguration checkConfiguration, Consumer<Translatable> statusConsumer) throws LinterException, IOException;
+    default List<? extends AbstractProblem> checkFile(Path file, JavaVersion version, CheckConfiguration checkConfiguration,
+                                              Consumer<Translatable> statusConsumer) throws LinterException, IOException {
+        return this.checkFileFallible(file, version, checkConfiguration, statusConsumer, FailureInformation.failFastConsumer());
+    }
+
+    List<? extends AbstractProblem> checkFileFallible(Path file, JavaVersion version, CheckConfiguration checkConfiguration,
+                                                      Consumer<Translatable> statusConsumer,
+                                                      Consumer<FailureInformation> failureConsumer) throws LinterException, IOException;
+
     String translateMessage(Translatable translatable);
 
     static Builder builder(Locale locale) {
@@ -74,6 +82,7 @@ public interface AbstractLinter {
 
         /**
          * Add message overrides that always apply, regardless of problem type. Conditional overrides take precedence.
+         *
          * @param bundle
          * @return this
          */
@@ -89,6 +98,7 @@ public interface AbstractLinter {
         /**
          * Add a message override that only applies if the message was emitted for the specified problem type.
          * Conditional overrides override all other overrides.
+         *
          * @param problemType
          * @param bundle
          * @return this

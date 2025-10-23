@@ -73,7 +73,7 @@ javadoc-undocumented-throws = Die Exception '{$exp}' wird geworfen, aber nicht i
 todo-comment = TODOs sollten nicht in der finalen Abgabe vorhanden sein.
 
 # Complexity
-use-diamond-operator = Die Typen in '< A, B, ... >' können entfernt werden, schreibe stattdessen '<>'.
+use-diamond-operator = Die Typen in '{$type}' können entfernt werden, schreibe stattdessen '<>'.
 
 extends-object = Explizit von Object zu erben ist unnötig
 

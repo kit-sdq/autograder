@@ -1,21 +1,21 @@
 package de.firemage.autograder.core.integrated.evaluator.fold;
 
 import de.firemage.autograder.core.integrated.ExpressionUtil;
-import de.firemage.autograder.core.integrated.evaluator.Evaluator;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLiteral;
-import spoon.reflect.eval.PartialEvaluator;
 import spoon.reflect.factory.Factory;
 
 public final class EvaluatePartialLiteralOperations implements Fold {
-    private final PartialEvaluator evaluator;
+    private final Fold operatorPromotion;
+    private final Fold applyCasts;
 
     private EvaluatePartialLiteralOperations() {
-        this.evaluator = new Evaluator(PromoteOperands.create(
+        this.operatorPromotion = ApplyOperatorPromotion.create(
             (operator, ctExpression) -> true,
             (operator, ctExpression) -> true
-        ));
+        );
+        this.applyCasts = ApplyCasts.onLiterals();
     }
 
     public static Fold create() {
@@ -25,7 +25,11 @@ public final class EvaluatePartialLiteralOperations implements Fold {
     @Override
     @SuppressWarnings("unchecked")
     public <T> CtExpression<T> foldCtBinaryOperator(CtBinaryOperator<T> ctBinaryOperator) {
-        CtBinaryOperator<T> promotedOperator = this.evaluator.evaluate(ctBinaryOperator);
+        CtBinaryOperator<T> promotedOperator = (CtBinaryOperator<T>) this.operatorPromotion.fold(ctBinaryOperator.clone());
+
+        // Apply the casts on both operands (if applicable)
+        promotedOperator.setLeftHandOperand((CtExpression<T>) this.applyCasts.fold(promotedOperator.getLeftHandOperand()));
+        promotedOperator.setRightHandOperand((CtExpression<T>) this.applyCasts.fold(promotedOperator.getRightHandOperand()));
 
         CtExpression<?> rightExpression = promotedOperator.getRightHandOperand();
 

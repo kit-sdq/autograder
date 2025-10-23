@@ -1,5 +1,6 @@
 package de.firemage.autograder.extra.errorprone;
 
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.Translatable;
 import de.firemage.autograder.core.CodeLinter;
 import de.firemage.autograder.core.LinterStatus;
@@ -23,12 +24,14 @@ public class ErrorProneLinter implements CodeLinter<ErrorProneCheck> {
         return ErrorProneCheck.class;
     }
 
+    @Override
     public List<Problem> lint(
         UploadedFile submission,
         AbstractTempLocation tempLocation,
         ClassLoader classLoader,
-        List<ErrorProneCheck> checks,
-        Consumer<Translatable> statusConsumer
+        List<? extends ErrorProneCheck> checks,
+        Consumer<? super Translatable> statusConsumer,
+        Consumer<? super FailureInformation> failureConsumer
     ) throws IOException {
         statusConsumer.accept(LinterStatus.RUNNING_ERROR_PRONE.getMessage());
         Map<ErrorProneLint, Function<ErrorProneDiagnostic, Message>> lintsForChecks = new HashMap<>();
@@ -57,7 +60,12 @@ public class ErrorProneLinter implements CodeLinter<ErrorProneCheck> {
             lints
         );
 
-        List<ErrorProneDiagnostic> diagnostics = compiler.compile(code);
+        List<ErrorProneDiagnostic> diagnostics = new ArrayList<>();
+        try {
+            diagnostics = compiler.compile(code);
+        } catch (Exception exception) {
+            failureConsumer.accept(new FailureInformation("ErrorProneLinter", exception));
+        }
 
         Map<ErrorProneLint, List<ErrorProneDiagnostic>> diagnosticMapping = new HashMap<>();
 
