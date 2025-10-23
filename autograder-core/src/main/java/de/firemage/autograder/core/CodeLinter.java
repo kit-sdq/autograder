@@ -1,5 +1,6 @@
 package de.firemage.autograder.core;
 
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.Translatable;
 import de.firemage.autograder.core.check.Check;
 import de.firemage.autograder.api.AbstractTempLocation;
@@ -20,6 +21,7 @@ public interface CodeLinter<T extends Check> {
      * @param classLoader some class loader
      * @param checks the checks to use, they are guaranteed to be supported by this linter
      * @param statusConsumer a consumer that can be used to report the progress of the linting
+     * @param failureConsumer will be called for each failure that occurs during linting
      * @return a list of problems found in the submission
      * @throws IOException if an I/O error occurs
      */
@@ -27,7 +29,8 @@ public interface CodeLinter<T extends Check> {
         UploadedFile submission,
         AbstractTempLocation tempLocation,
         ClassLoader classLoader,
-        List<T> checks,
-        Consumer<Translatable> statusConsumer
+        List<? extends T> checks,
+        Consumer<? super Translatable> statusConsumer,
+        Consumer<? super FailureInformation> failureConsumer
     ) throws IOException;
 }

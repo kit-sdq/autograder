@@ -1,5 +1,6 @@
 package de.firemage.autograder.extra.pmd;
 
+import de.firemage.autograder.api.FailureInformation;
 import de.firemage.autograder.api.Translatable;
 import de.firemage.autograder.core.CodeLinter;
 import de.firemage.autograder.core.LinterStatus;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class PMDLinter implements CodeLinter<PMDCheck> {
     private static final Language JAVA_LANGUAGE = LanguageRegistry.PMD.getLanguageById("java");
@@ -40,8 +42,9 @@ public class PMDLinter implements CodeLinter<PMDCheck> {
         UploadedFile submission,
         AbstractTempLocation tempLocation,
         ClassLoader classLoader,
-        List<PMDCheck> checks,
-        Consumer<Translatable> statusConsumer
+        List<? extends PMDCheck> checks,
+        Consumer<? super Translatable> statusConsumer,
+        Consumer<? super FailureInformation> failureConsumer
     ) throws IOException {
         statusConsumer.accept(LinterStatus.RUNNING_PMD.getMessage());
 
@@ -82,6 +85,11 @@ public class PMDLinter implements CodeLinter<PMDCheck> {
             renderer.setSourceFiles(collector.getCollectedFiles());
 
             pmd.performAnalysis();
+        } catch (Exception exception) {
+            failureConsumer.accept(new FailureInformation(
+                "[%s]".formatted(rules.stream().map(Rule::getName).collect(Collectors.joining(", "))),
+                exception
+            ));
         }
 
         return renderer.getProblems();
