@@ -101,7 +101,7 @@
                             <filters>
                                 <!-- It must not remove the autograder files, otherwise it won't report anything -->
                                 <filter>
-                                    <artifact>de.*:*</artifact>
+                                    <artifact>edu.*:*</artifact>
                                     <includes>
                                         <include>**</include>
                                     </includes>
