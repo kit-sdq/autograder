@@ -53,7 +53,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <slf4j.version>2.0.17</slf4j.version>
-        <jackson.version>2.20.0</jackson.version>
+        <jackson.version>2.20.1</jackson.version>
         <spoon.version>11.2.1</spoon.version>
         <fluent.version>0.72</fluent.version>
         <reflections.version>0.10.2</reflections.version>
