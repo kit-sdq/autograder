@@ -38,7 +38,7 @@ public class StringCompareCheck extends IntegratedCheck {
                             "suggest-replacement",
                             Map.of(
                                 "original", operator.toString(),
-                                "replacement", "%s.equals(%s)".formatted(lhs, rhs)
+                                "suggestion", "%s.equals(%s)".formatted(lhs, rhs)
                             )
                         ),
                         ProblemType.STRING_COMPARE_BY_REFERENCE
