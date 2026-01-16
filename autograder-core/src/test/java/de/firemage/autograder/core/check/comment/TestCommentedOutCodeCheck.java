@@ -114,7 +114,7 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     }
 
     @Test
-    void testJavadoc() throws IOException, LinterException {
+    void testNoCodeComments() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
                 JavaVersion.JAVA_17,
@@ -127,11 +127,46 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
                      */
                     public class RunCommand {
                         // some comment
+                        
+                        /*
+                        A multi line comment with special character;
+                        two words
+                        */
                     }
                     """
             ),
             PROBLEM_TYPES
         );
+
+        problems.assertExhausted();
+    }
+
+    @Test
+    void testMultilineCodeReal() throws IOException, LinterException {
+        ProblemIterator problems = this.checkIterator(
+                StringSourceInfo.fromSourceString(
+                        JavaVersion.JAVA_17,
+                        "Test",
+                        """
+                                public class Test {
+                                
+                                    /*
+                                    public int add() {
+                                        return 1 + 1;
+                                    }
+                                
+                                    private int subtract() {
+                                        return 1 - 1;
+                                    }
+                                     */
+                                }
+                                
+                            """
+                ),
+                PROBLEM_TYPES
+        );
+
+        assertEqualsCode(problems.next(), 3, 11);
 
         problems.assertExhausted();
     }
