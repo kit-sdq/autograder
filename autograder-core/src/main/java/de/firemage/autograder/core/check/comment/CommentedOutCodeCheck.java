@@ -16,6 +16,7 @@ import spoon.reflect.code.CtComment;
 import spoon.reflect.cu.SourcePosition;
 
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -48,7 +49,9 @@ public class CommentedOutCodeCheck extends IntegratedCheck {
                 }
                 String content = comment.getContent().trim();
 
-                if (isValidCode(content)) {
+                if (isValidCode(content) || 
+                        comment.getCommentType().equals(CtComment.CommentType.BLOCK) 
+                                && Arrays.stream(content.split("\n")).anyMatch(CommentedOutCodeCheck::isValidCode)) {
                     var position = comment.getPosition();
                     files
                         .computeIfAbsent(position.getFile().toPath(), path -> new TreeSet<>(POSITION_COMPARATOR))
