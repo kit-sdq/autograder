@@ -54,7 +54,7 @@
 
         <slf4j.version>2.0.17</slf4j.version>
         <jackson.version>2.21.0</jackson.version>
-        <spoon.version>11.2.1</spoon.version>
+        <spoon.version>11.3.0</spoon.version>
         <fluent.version>0.72</fluent.version>
         <reflections.version>0.10.2</reflections.version>
         <javaparser.version>3.28.0</javaparser.version>
