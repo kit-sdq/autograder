@@ -60,35 +60,41 @@ public class UnusedCodeElementCheck extends IntegratedCheck {
             }
         }
 
-        if (element instanceof CtVariable<?> variable) {
-            if (UsesFinder.variableUses(variable).hasAny()) {
-                return false;
-            } else if (variable instanceof CtParameter<?> parameter && parameter.getParent() instanceof CtMethod<?> method) {
-                // For method parameters, also look in overriding methods
-                int parameterIndex = ElementUtil.getParameterIndex(parameter, method);
-                return MethodHierarchy
-                        .streamAllOverridingMethods(method)
-                        .allMatch(m -> isConsideredUnused(m.getExecutable().getParameters().get(parameterIndex), model));
-            }
-            return true;
+        switch (element) {
+            case CtVariable<?> variable -> {
+                if (UsesFinder.variableUses(variable).hasAny()) {
+                    return false;
+                }
 
-        } else if (element instanceof CtTypeParameter typeParameter) {
-            return UsesFinder.typeParameterUses(typeParameter).hasNone();
-        } else if (element instanceof CtType<?> type) {
-            return UsesFinder.typeUses(type).hasNone();
-        } else if (element instanceof CtExecutable<?> executable) {
-            // Ignore recursive calls
-            if (UsesFinder.executableUses(executable).filterIndirectParent(CtMethod.class, m -> m != executable).hasAny()) {
-                return false;
-            } else if (executable instanceof CtMethod<?> method) {
-                // For methods, also look for used overriding methods
-                return MethodHierarchy
-                        .streamAllOverridingMethods(method)
-                        .allMatch(m -> isConsideredUnused(m.getExecutable(), model));
+                if (variable instanceof CtParameter<?> parameter && parameter.getParent() instanceof CtMethod<?> method) {
+                    // For method parameters, also look in overriding methods
+                    int parameterIndex = ElementUtil.getParameterIndex(parameter, method);
+                    return MethodHierarchy
+                            .streamAllOverridingMethods(method)
+                            .allMatch(m -> isConsideredUnused(m.getExecutable().getParameters().get(parameterIndex), model));
+                }
+
+                return true;
             }
-            return true;
-        } else {
-            throw new IllegalArgumentException("Unsupported element: " + element.getClass().getName());
+            case CtTypeParameter typeParameter -> {
+                return UsesFinder.typeParameterUses(typeParameter).hasNone();
+            }
+            case CtType<?> type -> {
+                return UsesFinder.typeUses(type).hasNone();
+            }
+            case CtExecutable<?> executable -> {
+                // Ignore recursive calls
+                if (UsesFinder.executableUses(executable).filterIndirectParent(CtMethod.class, m -> m != executable).hasAny()) {
+                    return false;
+                } else if (executable instanceof CtMethod<?> method) {
+                    // For methods, also look for used overriding methods
+                    return MethodHierarchy
+                            .streamAllOverridingMethods(method)
+                            .allMatch(m -> isConsideredUnused(m.getExecutable(), model));
+                }
+                return true;
+            }
+            default -> throw new IllegalArgumentException("Unsupported element: " + element.getClass().getName());
         }
     }
 

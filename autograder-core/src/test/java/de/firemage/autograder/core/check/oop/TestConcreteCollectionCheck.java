@@ -351,7 +351,7 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
         assertEqualsConcrete(problems.next(), "HashMap");
         assertEqualsConcrete(problems.next(), "Vector");
         assertEqualsConcrete(problems.next(), "ArrayList");
-        assertEqualsConcrete(problems.next(), "O");
+        assertEqualsConcrete(problems.next(), "TestRawTypes.O");
         assertEqualsConcrete(problems.next(), "HashSet");
         assertEqualsConcrete(problems.next(), "HashSet");
         assertEqualsConcrete(problems.next(), "HashSet");

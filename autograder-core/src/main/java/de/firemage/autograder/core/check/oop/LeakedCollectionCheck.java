@@ -20,6 +20,7 @@ import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtNewArray;
 import spoon.reflect.code.CtReturn;
 import spoon.reflect.code.CtStatement;
+import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.code.CtVariableRead;
 import spoon.reflect.code.CtVariableWrite;
 import spoon.reflect.declaration.CtAnonymousExecutable;
@@ -37,7 +38,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeMember;
 import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.declaration.CtVariable;
-import spoon.reflect.factory.Factory;
+import spoon.reflect.reference.CtFieldReference;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.CtScanner;
 import spoon.reflect.visitor.filter.TypeFilter;
@@ -82,7 +83,8 @@ import java.util.stream.Stream;
 })
 public class LeakedCollectionCheck extends IntegratedCheck {
     private static boolean isMutableType(CtTypedElement<?> ctTypedElement) {
-        return  ctTypedElement.getType().isArray() || TypeUtil.isSubtypeOf(ctTypedElement.getType(), java.util.Collection.class) || TypeUtil.isSubtypeOf(ctTypedElement.getType(), java.util.Map.class);
+        return ctTypedElement.getType().isArray() || TypeUtil.isSubtypeOf(ctTypedElement.getType(), java.util.Collection.class) ||
+            TypeUtil.isSubtypeOf(ctTypedElement.getType(), java.util.Map.class);
     }
 
     /**
@@ -99,7 +101,8 @@ public class LeakedCollectionCheck extends IntegratedCheck {
             return true;
         }
 
-        if (!TypeUtil.isSubtypeOf(ctVariable.getType(), java.util.Collection.class) && !TypeUtil.isSubtypeOf(ctVariable.getType(), java.util.Map.class)) {
+        if (!TypeUtil.isSubtypeOf(ctVariable.getType(), java.util.Collection.class) &&
+            !TypeUtil.isSubtypeOf(ctVariable.getType(), java.util.Map.class)) {
             // not a collection
             return false;
         }
@@ -131,7 +134,8 @@ public class LeakedCollectionCheck extends IntegratedCheck {
             }
 
             // we only care about arrays and collections for now
-            if (!TypeUtil.isSubtypeOf(ctExpression.getType(), java.util.Collection.class) && !TypeUtil.isSubtypeOf(ctExpression.getType(), java.util.Map.class)) {
+            if (!TypeUtil.isSubtypeOf(ctExpression.getType(), java.util.Collection.class) &&
+                !TypeUtil.isSubtypeOf(ctExpression.getType(), java.util.Map.class)) {
                 // not a collection
                 return false;
             }
@@ -180,7 +184,8 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                     }
 
                     if (index >= ctConstructor.getParameters().size() || index == -1) {
-                        throw new IllegalStateException("Could not find parameter reference of %s in %s".formatted(ctExpression, ctConstructor));
+                        throw new IllegalStateException(
+                            "Could not find parameter reference of %s in %s".formatted(ctExpression, ctConstructor));
                     }
 
                     for (CtEnumValue<?> ctEnumValue : ctEnum.getEnumValues()) {
@@ -194,14 +199,15 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                     return false;
                 }
 
-                if (hasAssignedParameterReference(ctVariableRead, ctExecutable) || (ctVariable.getDefaultExpression() != null && isMutableExpression(ctVariable.getDefaultExpression()))) {
+                if (hasAssignedParameterReference(ctVariableRead, ctExecutable) ||
+                    (ctVariable.getDefaultExpression() != null && isMutableExpression(ctVariable.getDefaultExpression()))) {
                     return true;
                 }
 
                 // the variable is mutable if it is assigned a mutable value in the declaration or through any write
                 return UsesFinder.variableWrites(ctVariable)
                     .hasAnyMatch(ctVariableWrite -> {
-                        if (!(ctVariableWrite.getParent() instanceof CtAssignment<?,?> ctAssignment)) {
+                        if (!(ctVariableWrite.getParent() instanceof CtAssignment<?, ?> ctAssignment)) {
                             return false;
                         }
 
@@ -251,7 +257,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                 continue;
             }
 
-            if (ctStatement instanceof CtAssignment<?,?> ctAssignment
+            if (ctStatement instanceof CtAssignment<?, ?> ctAssignment
                 && ctAssignment.getAssigned() instanceof CtVariableWrite<?> ctVariableWrite
                 && ctVariableWrite.getVariable().equals(ctVariableRead.getVariable())) {
 
@@ -319,11 +325,11 @@ public class LeakedCollectionCheck extends IntegratedCheck {
 
         for (CtReturn<?> ctReturn : returns) {
             CtExpression<?> returnedExpression = ctReturn.getReturnedExpression();
-            if (!(returnedExpression instanceof CtFieldRead<?> ctFieldRead)) {
+            if (!(returnedExpression instanceof CtVariableRead<?> ctVariableRead)) {
                 continue;
             }
 
-            CtField<?> field = ctFieldRead.getVariable().getFieldDeclaration();
+            CtField<?> field = resolveFieldAccess(ctExecutable, ctVariableRead);
 
             // if the field is not private, it can be mutated anyway.
             if (field == null || !field.isPrivate()) {
@@ -345,6 +351,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
             }
         }
     }
+
     private static String formatSignature(CtExecutable<?> ctExecutable) {
         String name = ctExecutable.getSimpleName();
         if (ctExecutable instanceof CtConstructor<?> ctConstructor) {
@@ -352,8 +359,33 @@ public class LeakedCollectionCheck extends IntegratedCheck {
         }
         return "%s(%s)".formatted(
             name,
-            ctExecutable.getParameters().stream().map(CtTypedElement::getType).map(CtTypeReference::toString).collect(Collectors.joining(", "))
+            ctExecutable.getParameters().stream().map(CtTypedElement::getType).map(typeRef -> {
+                if (typeRef.isImplicit()) {
+                    // TODO: This is necessary, because of my patch submitted in https://github.com/INRIA/spoon/pull/6688
+                    //       making everything implicit in the record. Depending on the outcome, the below might not be necessary.
+                    var cloned = typeRef.clone();
+                    cloned.setImplicit(false);
+                    return cloned.toString();
+                } else {
+                    return typeRef.toString();
+                }
+            }).collect(Collectors.joining(", "))
         );
+    }
+
+    private static CtField<?> resolveFieldAccess(CtExecutable<?> ctExecutable, CtVariableAccess<?> ctVariableWrite) {
+        if (ctVariableWrite.getVariable() instanceof CtFieldReference<?> ctFieldReference) {
+            return ctFieldReference.getFieldDeclaration();
+        }
+
+        // Special-case for compact constructors, where the assignment refers to the constructor parameter.
+        //
+        // For our case it would be useful to treat these as if they were field access:
+        if (ctExecutable instanceof CtConstructor<?> ctConstructor && ctConstructor.isCompactConstructor()) {
+            return ctConstructor.getDeclaringType().getField(ctVariableWrite.getVariable().getSimpleName());
+        }
+
+        return null;
     }
 
     /**
@@ -368,12 +400,18 @@ public class LeakedCollectionCheck extends IntegratedCheck {
         }
 
         for (CtStatement ctStatement : StatementUtil.getEffectiveStatements(ctExecutable.getBody())) {
-            if (!(ctStatement instanceof CtAssignment<?, ?> ctAssignment)
-                || !(ctAssignment.getAssigned() instanceof CtFieldWrite<?> ctFieldWrite)) {
+            if (!(ctStatement instanceof CtAssignment<?, ?> ctAssignment)) {
                 continue;
             }
 
-            CtField<?> ctField = ctFieldWrite.getVariable().getFieldDeclaration();
+            if (!(ctAssignment.getAssigned() instanceof CtVariableWrite<?> ctVariableWrite)) {
+                continue;
+            }
+
+            CtField<?> ctField = resolveFieldAccess(ctExecutable, ctVariableWrite);
+            if (ctField == null) {
+                continue;
+            }
 
             if (hasAssignedParameterReference(ctAssignment.getAssignment(), ctExecutable)
                 && ctField.isPrivate()
@@ -386,7 +424,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                             "leaked-collection-constructor",
                             Map.of(
                                 "signature", formatSignature(ctConstructor),
-                                "field", ctFieldWrite.getVariable().getSimpleName()
+                                "field", ctField.getSimpleName()
                             )
                         ),
                         ProblemType.LEAKED_COLLECTION_ASSIGN
@@ -398,7 +436,7 @@ public class LeakedCollectionCheck extends IntegratedCheck {
                             "leaked-collection-assign",
                             Map.of(
                                 "method", ctExecutable.getSimpleName(),
-                                "field", ctFieldWrite.getVariable().getSimpleName()
+                                "field", ctField.getSimpleName()
                             )
                         ),
                         ProblemType.LEAKED_COLLECTION_ASSIGN

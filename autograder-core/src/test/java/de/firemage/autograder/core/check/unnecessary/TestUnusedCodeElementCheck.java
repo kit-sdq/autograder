@@ -833,6 +833,7 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     }
 
     @Test
+    @Disabled("This fails because of a spoon bug, see https://github.com/INRIA/spoon/issues/6645")
     void testInstanceOfPattern() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
             JavaVersion.JAVA_17,
