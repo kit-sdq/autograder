@@ -26,6 +26,7 @@ import spoon.reflect.code.CtVariableWrite;
 import spoon.reflect.declaration.CtAnonymousExecutable;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtConstructor;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtEnum;
 import spoon.reflect.declaration.CtEnumValue;
 import spoon.reflect.declaration.CtExecutable;
@@ -352,6 +353,20 @@ public class LeakedCollectionCheck extends IntegratedCheck {
         }
     }
 
+    private static String printImplicitTypeRef(CtTypeReference<?> ctTypeReference) {
+        // TODO: This is necessary, because of my patch submitted in https://github.com/INRIA/spoon/pull/6688
+        //       making everything implicit in the record. Depending on the outcome, the below might not be necessary.
+        if (!ctTypeReference.isImplicit()) {
+            return ctTypeReference.toString();
+        }
+
+        var cloned = ctTypeReference.clone();
+        cloned.setImplicit(false);
+        cloned.filterChildren(new TypeFilter<>(CtElement.class)).forEach((CtElement ctElement) -> ctElement.setImplicit(false));
+
+        return cloned.toString();
+    }
+
     private static String formatSignature(CtExecutable<?> ctExecutable) {
         String name = ctExecutable.getSimpleName();
         if (ctExecutable instanceof CtConstructor<?> ctConstructor) {
@@ -359,17 +374,10 @@ public class LeakedCollectionCheck extends IntegratedCheck {
         }
         return "%s(%s)".formatted(
             name,
-            ctExecutable.getParameters().stream().map(CtTypedElement::getType).map(typeRef -> {
-                if (typeRef.isImplicit()) {
-                    // TODO: This is necessary, because of my patch submitted in https://github.com/INRIA/spoon/pull/6688
-                    //       making everything implicit in the record. Depending on the outcome, the below might not be necessary.
-                    var cloned = typeRef.clone();
-                    cloned.setImplicit(false);
-                    return cloned.toString();
-                } else {
-                    return typeRef.toString();
-                }
-            }).collect(Collectors.joining(", "))
+            ctExecutable.getParameters().stream()
+                .map(CtTypedElement::getType)
+                .map(LeakedCollectionCheck::printImplicitTypeRef)
+                .collect(Collectors.joining(", "))
         );
     }
 
