@@ -14,6 +14,7 @@ import spoon.reflect.code.CtVariableAccess;
 import spoon.reflect.code.CtVariableRead;
 import spoon.reflect.code.CtVariableWrite;
 import spoon.reflect.declaration.CtClass;
+import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtExecutable;
 import spoon.reflect.declaration.CtInterface;
@@ -322,6 +323,25 @@ public class UsesFinder {
             }
 
             if (variable != null) {
+                var accesses = this.variableUses.computeIfAbsent(variable, k -> Collections.newSetFromMap(new IdentityHashMap<>()));
+                accesses.add(variableAccess);
+                this.variableAccessDeclarations.put(variableAccess, variable);
+            }
+
+            // A variable-access in a compact constructor refers to the parameters of the compact constructor, so in the following:
+            //
+            // record MyRecord(String string) {
+            //      MyRecord {
+            //          string = "!";
+            //      }
+            // }
+            //
+            // The reference to the string is referencing an implicit parameter of the compact constructor, and the field would never
+            // be assigned to. This is of course not correct, hence we handle this special-case here and treat it as if there were
+            // an assignment to the field and one to the parameter.
+            if (variableAccess.getParent(CtExecutable.class) instanceof CtConstructor<?> ctConstructor && ctConstructor.isCompactConstructor()) {
+                variable = ctConstructor.getDeclaringType().getField(variableAccess.getVariable().getSimpleName());
+
                 var accesses = this.variableUses.computeIfAbsent(variable, k -> Collections.newSetFromMap(new IdentityHashMap<>()));
                 accesses.add(variableAccess);
                 this.variableAccessDeclarations.put(variableAccess, variable);

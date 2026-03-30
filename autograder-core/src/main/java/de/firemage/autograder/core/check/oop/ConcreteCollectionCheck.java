@@ -39,6 +39,7 @@ import spoon.reflect.visitor.CtScanner;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ExecutableCheck(reportedProblems = { ProblemType.CONCRETE_COLLECTION_AS_FIELD_OR_RETURN_VALUE })
@@ -146,6 +147,29 @@ public class ConcreteCollectionCheck extends IntegratedCheck {
         return false;
     }
 
+    private String formatTypeName(CtTypeReference<?> ctTypeReference) {
+        if (ctTypeReference == null) {
+            return "";
+        }
+
+        String baseName = ctTypeReference.getSimpleName();
+        CtTypeReference<?> declaringType = ctTypeReference.getDeclaringType();
+        if (declaringType != null) {
+            baseName = formatTypeName(declaringType) + "." + baseName;
+        }
+
+        List<CtTypeReference<?>> typeArguments = ctTypeReference.getActualTypeArguments();
+        if (typeArguments.isEmpty()) {
+            return baseName;
+        }
+
+        String formattedArgs = typeArguments.stream()
+            .map(this::formatTypeName)
+            .collect(Collectors.joining(", "));
+
+        return baseName + "<" + formattedArgs + ">";
+    }
+
     private boolean checkCtTypeReference(CtTypeReference<?> ctTypeReference) {
         if (!ctTypeReference.getPosition().isValidPosition()
             // arrays are special, they will be handled by the code
@@ -186,7 +210,7 @@ public class ConcreteCollectionCheck extends IntegratedCheck {
             new LocalizedMessage(
                 "concrete-collection",
                 Map.of(
-                    "type", ctTypeReference
+                    "type", this.formatTypeName(ctTypeReference)
                 )
             ),
             ProblemType.CONCRETE_COLLECTION_AS_FIELD_OR_RETURN_VALUE
