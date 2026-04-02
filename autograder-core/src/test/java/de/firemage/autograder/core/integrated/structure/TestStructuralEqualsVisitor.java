@@ -4,6 +4,7 @@ import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.file.TempLocation;
 import de.firemage.autograder.core.file.UploadedFile;
+import de.firemage.autograder.core.integrated.DuplicateCodeFinder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import spoon.reflect.CtModel;
@@ -45,7 +46,7 @@ class TestStructuralEqualsVisitor {
     }
 
     private static void checkStructurallyEqual(CtElement left, CtElement right, CtRole mismatch) {
-        StructuralEqualsVisitor visitor = new StructuralEqualsVisitor();
+        StructuralEqualsVisitor visitor = new StructuralEqualsVisitor(DuplicateCodeFinder.ALLOWED_DIFFERENCE);
         boolean isEqual = visitor.checkEquals(left, right);
 
         if (mismatch == null) {

@@ -478,4 +478,45 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
 
         problems.assertExhausted();
     }
+
+    @Test
+    void testSimilarBranches() throws IOException, LinterException {
+        ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
+            JavaVersion.JAVA_17,
+            "Main",
+            """
+                record Target(int defense) {
+                    public int getDefense() {
+                        return this.defense;
+                    }
+                    
+                    public boolean isFaceUp() {
+                        return this.getDefense() == 0;
+                    }
+                    
+                    public boolean isBlocking() {
+                        return !this.isFaceUp();
+                    }
+                }
+                
+                public class Main {
+                    private static final int UNKNOWN_PENALTY = 500;
+
+                    int calculate(int unitAtk, Target target) {
+                        if (target.isFaceUp()) {
+                            return unitAtk - UNKNOWN_PENALTY;
+                        } else if (target.isBlocking()) {
+                            return unitAtk - target.getDefense();
+                        }
+
+                        return unitAtk;
+                    }
+
+                    public static void main(String[] args) {}
+                }
+                """
+        ), PROBLEM_TYPES);
+
+        problems.assertExhausted();
+    }
 }
