@@ -8,6 +8,7 @@ import spoon.reflect.CtModel;
 import spoon.reflect.code.CtComment;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtStatementList;
+import spoon.reflect.path.CtRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +16,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiPredicate;
 import java.util.stream.StreamSupport;
 
 public final class DuplicateCodeFinder {
     private static final String METADATA_KEY = "autograder_duplicate_code_uses";
+    public static final BiPredicate<? super CtRole, Object> ALLOWED_DIFFERENCE = StructuralEqualsVisitor.ALLOW_NAME_DIFFERENCE
+        .or(StructuralEqualsVisitor.ALLOW_REFACTORABLE_DIFFERENCE);
+
     private final Map<StructuralElement<CtStatement>, List<CtStatement>> occurrences;
 
     private DuplicateCodeFinder(CtModel model) {
@@ -31,7 +36,7 @@ public final class DuplicateCodeFinder {
                 }
 
                 DuplicateCodeFinder.this.occurrences.computeIfAbsent(
-                    new StructuralElement<>(ctStatement),
+                    new StructuralElement<>(ctStatement, ALLOWED_DIFFERENCE),
                     key -> new ArrayList<>()
                 ).add(ctStatement);
             }
@@ -73,7 +78,7 @@ public final class DuplicateCodeFinder {
     }
 
     private List<CtStatement> findDuplicateStatements(CtStatement statement) {
-        return Collections.unmodifiableList(this.occurrences.get(new StructuralElement<>(statement)));
+        return Collections.unmodifiableList(this.occurrences.get(new StructuralElement<>(statement, ALLOWED_DIFFERENCE)));
     }
 
     private static <K, V> Iterable<Map.Entry<K, V>> zip(Iterable<K> keys, Iterable<V> values) {
@@ -124,7 +129,7 @@ public final class DuplicateCodeFinder {
 
         public List<StructuralEqualsVisitor.Difference> differences() {
             return StreamSupport.stream(zip(this.left, this.right).spliterator(), false)
-                .flatMap(entry -> StructuralEqualsVisitor.findDifferences(entry.getKey(), entry.getValue()).stream())
+                .flatMap(entry -> StructuralEqualsVisitor.findDifferences(entry.getKey(), entry.getValue(), ALLOWED_DIFFERENCE).stream())
                 .toList();
         }
     }
@@ -149,7 +154,7 @@ public final class DuplicateCodeFinder {
             List<CtStatement> rightCode = new ArrayList<>(List.of(duplicate));
 
             for (var entry : zip(StatementUtil.getNextStatements(start), StatementUtil.getNextStatements(duplicate))) {
-                if (!StructuralEqualsVisitor.equals(entry.getKey(), entry.getValue())) {
+                if (!StructuralEqualsVisitor.equals(entry.getKey(), entry.getValue(), ALLOWED_DIFFERENCE)) {
                     break;
                 }
 

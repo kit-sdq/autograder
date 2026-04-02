@@ -30,7 +30,8 @@ import java.util.stream.Collectors;
 @ExecutableCheck(reportedProblems = { ProblemType.DUPLICATE_CATCH_BLOCK })
 public class DuplicateCatchBlock extends IntegratedCheck {
     public static boolean isDuplicateBlock(CtStatement left, CtStatement right, Predicate<? super StructuralEqualsVisitor.Difference> isAllowedDifference) {
-        StructuralEqualsVisitor visitor = new StructuralEqualsVisitor();
+        // We initially reject any difference, whether a difference is fine, will later be checked
+        StructuralEqualsVisitor visitor = new StructuralEqualsVisitor((ctRole, element) -> false);
 
         // don't emit a problem if the catch block was already a duplicate of another block flagged by the duplicate code check
         if (DuplicateCode.isConsideredDuplicateCode(List.of(left), List.of(right))) {

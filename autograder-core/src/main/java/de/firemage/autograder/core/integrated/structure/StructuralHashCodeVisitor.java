@@ -6,6 +6,8 @@ import spoon.reflect.path.CtRole;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.CtScanner;
 
+import java.util.function.BiPredicate;
+
 /**
  * A visitor that computes a hash code for a spoon element based on its structure.
  * <br>
@@ -15,13 +17,15 @@ import spoon.reflect.visitor.CtScanner;
  */
 public final class StructuralHashCodeVisitor extends CtScanner {
     private final HashCodeBuilder builder;
+    private final BiPredicate<? super CtRole, Object> isAllowedDifference;
 
-    private StructuralHashCodeVisitor() {
+    private StructuralHashCodeVisitor(BiPredicate<? super CtRole, Object> isAllowedDifference) {
         this.builder = new HashCodeBuilder();
+        this.isAllowedDifference = isAllowedDifference;
     }
 
-    public static int computeHashCode(CtElement element) {
-        StructuralHashCodeVisitor visitor = new StructuralHashCodeVisitor();
+    public static int computeHashCode(CtElement element, BiPredicate<? super CtRole, Object> isAllowedDifference) {
+        StructuralHashCodeVisitor visitor = new StructuralHashCodeVisitor(isAllowedDifference);
         visitor.scan(element);
         return visitor.getHashCode();
     }
@@ -37,7 +41,7 @@ public final class StructuralHashCodeVisitor extends CtScanner {
 
     @Override
     public void scan(CtRole ctRole, CtElement element) {
-        if (StructuralEqualsVisitor.shouldSkip(ctRole, element)) {
+        if (StructuralEqualsVisitor.shouldSkip(ctRole, element, this.isAllowedDifference)) {
             return;
         }
         this.builder.append(ctRole);
