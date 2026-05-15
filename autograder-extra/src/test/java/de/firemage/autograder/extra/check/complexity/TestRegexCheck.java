@@ -41,8 +41,8 @@ class TestRegexCheck extends AbstractCheckTest {
                             private String noRegex = "Should we do this? I guess we shouldn't! f*ck you!";
                             private String regex1 = "(foo)* [bar]+ x? x?"; /*# ok #*/
                             private String regex2 = "(?<g1>foo)"; /*# ok #*/
-                            private String simpleRegex1 = "\\d*.\\d*";
-                            private String simpleRegex2 = "\\d*";
+                            private String simpleRegex1 = "\\\\d*.\\\\d*";
+                            private String simpleRegex2 = "\\\\d*";
                             private String simpleRegex3 = "^[a-z]+";
                             private String invalidRegex = "(foo* [bar]+ x? x?";
 

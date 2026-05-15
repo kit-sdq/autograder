@@ -15,7 +15,8 @@ public enum JavaVersion {
     JAVA_15("15", 15),
     JAVA_16("16", 16),
     JAVA_17("17", 17),
-    JAVA_21("21", 21);
+    JAVA_21("21", 21),
+    JAVA_25("25", 25);
 
     private final String versionString;
     private final int versionNumber;
