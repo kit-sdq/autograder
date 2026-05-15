@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -66,7 +64,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testLeakedGetArrayInClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -93,7 +90,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testNoAssignment() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -114,7 +110,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testMutableFieldInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -138,7 +133,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testImmutableFieldInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -160,7 +154,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testConstructorMutableInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -188,7 +181,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testConstructorParamInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -254,7 +246,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     )
     void testImmutableInit(String type, String init) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.*;
@@ -275,7 +266,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testLambdaReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -311,7 +301,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testEnumArrayReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "FieldKind",
             """
                 enum Vegetable { CARROT, SALAD; }
@@ -340,7 +329,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testEnumListOf() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "FieldKind",
             """
                 import java.util.List;
@@ -370,7 +358,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testEnumMutableList() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "FieldKind",
             """
                 import java.util.List;
@@ -403,7 +390,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignPublicConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -427,7 +413,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignMultiple() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -454,7 +439,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testSetter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -478,7 +462,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testSetterArray() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -502,7 +485,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testSetterCopy() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -524,7 +506,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignPublic() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -546,7 +527,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignNoWrite() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -570,7 +550,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignClassDefaultPublic() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -594,7 +573,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testAssignNotParameter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -617,7 +595,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordNoConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Forest",
             """
                 import java.util.List;
@@ -639,7 +616,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordImmutable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Forest",
             """
                 import java.util.List;
@@ -661,7 +637,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordOverridden() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Forest",
             """
                 import java.util.List;
@@ -692,7 +667,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordNotOverriddenGetter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Forest",
             """
                 import java.util.List;
@@ -725,7 +699,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordInitConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Forest",
             """
                 import java.util.List;
@@ -751,7 +724,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordUnmodifiableWithTempVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -779,7 +751,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordCopy() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -805,7 +776,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordCallingCanonicalConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -830,7 +800,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testRecordNotOverwritingAccessor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -860,7 +829,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testConditionalReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -890,7 +858,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Disabled("Not implemented")
     void testUnusedDefaultValue() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -917,7 +884,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorImmutable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -938,7 +904,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorImmutableMap() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.Map;
@@ -959,7 +924,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorLeakedAssign() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -986,7 +950,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorLeakedAssignMap() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.Map;
@@ -1013,7 +976,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorCopied() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.List;
@@ -1036,7 +998,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testCompactConstructorCopiedMap() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.Map;
@@ -1060,7 +1021,6 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
     @Test
     void testSelfAssignment() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Zoo",
             """
                 import java.util.Collection;
@@ -1082,3 +1042,5 @@ class TestLeakedCollectionCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

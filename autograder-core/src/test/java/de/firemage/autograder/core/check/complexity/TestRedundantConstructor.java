@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.SourceInfo;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
@@ -269,8 +268,8 @@ class TestRedundantConstructor extends AbstractCheckTest {
 
     @Test
     void testNotRedundantConstructorSuperArgs() throws IOException, LinterException {
-        assertRedundant(
-            StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.of(
+            assertRedundant(
+            StringSourceInfo.fromSourceStrings(Map.of(
                 "Base",
                 """
                     public class Base {
@@ -294,8 +293,8 @@ class TestRedundantConstructor extends AbstractCheckTest {
     @Test
     void testNotRedundantQualifiedSuper() throws IOException, LinterException {
         // taken from JLS example 8.8.7.1-2
-        assertRedundant(
-            StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.of(
+            assertRedundant(
+            StringSourceInfo.fromSourceStrings(Map.of(
                 "Outer",
                 """
                     class Outer {
@@ -318,8 +317,8 @@ class TestRedundantConstructor extends AbstractCheckTest {
     @Test
     void testNotRedundantConstructorProtectedInnerClass() throws IOException, LinterException {
         // Taken from JLS example 8.8.9-2
-        assertRedundant(
-            StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.of(
+            assertRedundant(
+            StringSourceInfo.fromSourceStrings(Map.of(
                 "a.Outer",
                 """
                     package a;
@@ -352,7 +351,7 @@ class TestRedundantConstructor extends AbstractCheckTest {
     }
 
     private void assertRedundant(String className, String source, boolean redundant) throws LinterException, IOException {
-        assertRedundant(StringSourceInfo.fromSourceString(JavaVersion.JAVA_17, className, source), redundant);
+        assertRedundant(StringSourceInfo.fromSourceString(className, source), redundant);
     }
 
     private void assertRedundant(SourceInfo info, boolean redundant) throws LinterException, IOException {

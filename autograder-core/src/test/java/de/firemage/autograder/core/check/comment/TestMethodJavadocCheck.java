@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.SourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.SourceInfo;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -64,7 +62,6 @@ class TestMethodJavadocCheck extends AbstractCheckTest {
 
     private static SourceInfo makeTestClass(String returnType, String parameter, String... javadocEntries) {
         return StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -196,3 +193,5 @@ class TestMethodJavadocCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

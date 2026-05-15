@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.comment;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -50,7 +48,6 @@ class TestJavadocStubCheck extends AbstractCheckTest {
     @Test
     void testJavadocStubDescription() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -82,7 +79,6 @@ class TestJavadocStubCheck extends AbstractCheckTest {
     @Test
     void testJavadocStubTag() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 /**
@@ -122,7 +118,6 @@ class TestJavadocStubCheck extends AbstractCheckTest {
     @Test
     void testJavadocStubInInherited() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -141,3 +136,5 @@ class TestJavadocStubCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

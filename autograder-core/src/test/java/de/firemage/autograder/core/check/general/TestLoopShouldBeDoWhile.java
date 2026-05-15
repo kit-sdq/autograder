@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -37,7 +35,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testNoExtraStatements() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -67,7 +64,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testExtraBefore() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -96,7 +92,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testExtraAfter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -125,7 +120,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testExtraInLoopStart() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -148,7 +142,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testExtraInLoopEnd() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -171,7 +164,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testEmptyLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -190,7 +182,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testNoPrecedingStatements() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -210,7 +201,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testSingleStatement() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -235,7 +225,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testNoStatement() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -256,7 +245,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testTruncation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -294,7 +282,6 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
     @Test
     void testDeepIndentBody() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -327,3 +314,5 @@ class TestLoopShouldBeDoWhile extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -5,9 +5,7 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import org.junit.jupiter.api.Test;
+import de.firemage.autograder.core.check.AbstractCheckTest;import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,7 +34,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testMotivatingExample() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -62,7 +59,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testFormatStringBuilder() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -84,7 +80,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testMinimumStringConstantLiterals() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -108,7 +103,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testTooFewStringLiterals() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -130,7 +124,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testBuildFormatString() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -152,7 +145,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testLongConstant() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -171,7 +163,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testOnlyLiterals() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -194,7 +185,6 @@ class TestUseFormatString extends AbstractCheckTest {
     @Test
     void testOnlyVariables() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public class Field {
@@ -213,3 +203,5 @@ class TestUseFormatString extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

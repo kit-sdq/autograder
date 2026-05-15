@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -57,7 +55,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testSwitchInEnum() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Color",
             """
                 public enum Color {
@@ -90,7 +87,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testSwitchWithCode() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -132,7 +128,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testMapToEnum() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 enum Color {
@@ -171,7 +166,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testMapToClasses() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Color",
@@ -237,7 +231,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testMapToClassesSwitchExpr() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Color",
@@ -298,7 +291,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testMapToClassesInvocation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Color",
@@ -375,7 +367,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testMapToClassesAssignment() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Color",
@@ -448,7 +439,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testReturnClosedSet() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -527,7 +517,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testFiniteListingList() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -547,7 +536,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testFiniteListingArray() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -565,7 +553,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testFiniteListingSet() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -585,7 +572,6 @@ class TestClosedSetOfValues extends AbstractCheckTest {
     @Test
     void testFiniteListingLocalVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -603,3 +589,5 @@ class TestClosedSetOfValues extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -1,6 +1,5 @@
 package de.firemage.autograder.extra.check;
 
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
@@ -18,7 +17,6 @@ class TestCheckConflict extends AbstractCheckTest {
         // See https://github.com/Feuermagier/autograder/issues/672
         // and https://github.com/Feuermagier/autograder/issues/636
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.ArrayList;

@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -34,7 +32,6 @@ class TestUseSubList extends AbstractCheckTest {
     @Test
     void testSubList() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -78,7 +75,6 @@ class TestUseSubList extends AbstractCheckTest {
     @Test
     void testEntireList() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -103,7 +99,6 @@ class TestUseSubList extends AbstractCheckTest {
     @Test
     void testMap() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;
@@ -125,3 +120,4 @@ class TestUseSubList extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+

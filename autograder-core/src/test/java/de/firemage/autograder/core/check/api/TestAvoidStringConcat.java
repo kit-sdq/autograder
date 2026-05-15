@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.api;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -33,7 +31,6 @@ class TestAvoidStringConcat  extends AbstractCheckTest {
     @Test
     void testConcat() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -54,7 +51,6 @@ class TestAvoidStringConcat  extends AbstractCheckTest {
     @Test
     void testConcatStream() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -72,3 +68,5 @@ class TestAvoidStringConcat  extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

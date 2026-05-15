@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -62,7 +60,6 @@ class TestWrapperInstantiationCheck extends AbstractCheckTest {
     void testDetectsConstructorCallsForEveryPrimitiveType(String type, String argument, String suggestion) throws IOException, LinterException {
         String expression = "new %s(%s)".formatted(type, argument);
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             public class Test {
@@ -81,7 +78,6 @@ class TestWrapperInstantiationCheck extends AbstractCheckTest {
     @Test
     void testShadowedClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Character",
@@ -107,3 +103,5 @@ class TestWrapperInstantiationCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

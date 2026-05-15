@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -51,7 +49,6 @@ class TestRedundantNegationCheck extends AbstractCheckTest {
     )
     void testRedundantNegation(String expression, String arguments, String expected) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public class Test { public void foo(%s) { var value = %s; } }".formatted(
                 arguments,
@@ -69,7 +66,6 @@ class TestRedundantNegationCheck extends AbstractCheckTest {
     @Test
     void testNegatedInvocation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -88,7 +84,6 @@ class TestRedundantNegationCheck extends AbstractCheckTest {
     @Test
     void testNestedUnnecessaryNegation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -108,3 +103,5 @@ class TestRedundantNegationCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -43,7 +41,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -73,7 +70,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testEnumConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 enum Test {
@@ -100,7 +96,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testEnumLambda() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "EnumTest",
             """
                 import java.util.function.Function;
@@ -132,7 +127,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testDoubleBraceInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;
@@ -154,7 +148,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testMagicStringsInCode() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Function;
@@ -209,7 +202,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     )
     void testValues(String expression, boolean isMagicLiteral) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             public class Test {
@@ -231,7 +223,6 @@ class TestMagicLiteral extends AbstractCheckTest {
     @Test
     void testMagicNumber() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Function;
@@ -250,3 +241,5 @@ class TestMagicLiteral extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

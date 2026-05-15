@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -33,7 +31,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testContainsImplicitElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -69,7 +66,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testContainsExplicitElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -105,7 +101,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testContainsAfterIf() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -139,7 +134,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testReturnList() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -171,7 +165,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testReturnArray() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -203,7 +196,6 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
     @Test
     void testAssignmentList() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Set;
@@ -236,3 +228,5 @@ class TestCheckIterableDuplicates extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

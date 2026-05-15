@@ -6,7 +6,6 @@ import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -32,7 +31,6 @@ class TestDefaultPackageCheck extends AbstractCheckTest {
     @Test
     void test() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             public class Test {
@@ -51,7 +49,6 @@ class TestDefaultPackageCheck extends AbstractCheckTest {
     @Test
     void testMultipleClasses() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 dummySourceEntry("com.example", "Test"),
                 dummySourceEntry("", "Hello"),
@@ -66,7 +63,6 @@ class TestDefaultPackageCheck extends AbstractCheckTest {
     @Test
     void testNoDefaultPackageUsed() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 dummySourceEntry("com.example", "Test"),
                 dummySourceEntry("com.example.a", "Hello"),

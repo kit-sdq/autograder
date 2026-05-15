@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     void testInlineCode() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -57,7 +54,6 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     void testMultilineCode() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -83,7 +79,6 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     void testCoalescing() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -117,7 +112,6 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     void testNoCodeComments() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "RunCommand",
                 """
                      /**
@@ -145,7 +139,6 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
     void testMultilineCodeReal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
                 StringSourceInfo.fromSourceString(
-                        JavaVersion.JAVA_17,
                         "Test",
                         """
                                 public class Test {
@@ -171,3 +164,5 @@ class TestCommentedOutCodeCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

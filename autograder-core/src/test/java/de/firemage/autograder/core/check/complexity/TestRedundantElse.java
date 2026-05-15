@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -47,7 +45,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -75,7 +72,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseIfReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -108,7 +104,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseIfElseReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -145,7 +140,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseIfElseIfElseReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -189,7 +183,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseNestedIfElseReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -215,7 +208,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfElseIfElseNonTerminalElseIfReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -250,7 +242,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -277,7 +268,6 @@ class TestRedundantElse extends AbstractCheckTest {
     @Test
     void testIfWithoutBlockReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -299,3 +289,5 @@ class TestRedundantElse extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

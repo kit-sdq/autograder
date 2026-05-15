@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.api;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -50,7 +48,6 @@ class TestIsLetterOrDigit extends AbstractCheckTest {
     )
     void testExpressions(String expression, String expected) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -68,3 +65,5 @@ class TestIsLetterOrDigit extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -36,17 +36,17 @@ public final class StringSourceInfo implements SourceInfo {
         this.version = version;
     }
 
-    public static SourceInfo fromSourceString(JavaVersion version, String className, String source) {
-        return StringSourceInfo.fromSourceStrings(version, Map.of(className, source));
+    public static SourceInfo fromSourceString(String className, String source) {
+        return StringSourceInfo.fromSourceStrings(Map.of(className, source));
     }
 
-    public static SourceInfo fromSourceStrings(JavaVersion version, Map<String, String> sources) {
+    public static SourceInfo fromSourceStrings(Map<String, String> sources) {
         List<VirtualFileObject> compilationUnits = new ArrayList<>();
         for (Map.Entry<String, String> entry : sources.entrySet()) {
             compilationUnits.add(new VirtualFileObject(ClassPath.fromString(entry.getKey()), entry.getValue()));
         }
 
-        return new StringSourceInfo(version, compilationUnits);
+        return new StringSourceInfo(JavaVersion.latest(), compilationUnits);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.api;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -32,7 +30,6 @@ class TestUseArraysCopyOf extends AbstractCheckTest {
     @Test
     void testArraysCopyOf() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Arrays;
@@ -59,3 +56,5 @@ class TestUseArraysCopyOf extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

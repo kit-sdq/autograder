@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestObjectDatatype extends AbstractCheckTest {
     @Test
     void testObjectVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -52,7 +49,6 @@ class TestObjectDatatype extends AbstractCheckTest {
     @Test
     void testObjectVariableArray() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -72,7 +68,6 @@ class TestObjectDatatype extends AbstractCheckTest {
     @Test
     void testObjectEquals() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             class Test {
@@ -90,7 +85,6 @@ class TestObjectDatatype extends AbstractCheckTest {
     @Test
     void testGenerics() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.util.List;
@@ -113,7 +107,6 @@ class TestObjectDatatype extends AbstractCheckTest {
     @Test
     void testRawTypes() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.util.List;
@@ -127,3 +120,5 @@ class TestObjectDatatype extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

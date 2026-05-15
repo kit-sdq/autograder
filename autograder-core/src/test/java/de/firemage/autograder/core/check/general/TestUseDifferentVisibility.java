@@ -5,9 +5,7 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import org.junit.jupiter.api.Test;
+import de.firemage.autograder.core.check.AbstractCheckTest;import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -46,7 +44,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testNoOtherReferences() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -68,7 +65,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testPackagePrivateRoot() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -101,7 +97,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testPackagePrivateDifferentPackage() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "com.Example",
@@ -138,7 +133,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testPrivate() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -172,7 +166,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testPrivateNestedClass() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -204,7 +197,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testMainMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -224,7 +216,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testMethodVisibility() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -295,7 +286,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testOverriddenMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -333,7 +323,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
         // The solution: Constants must not have a lower visibility than the constants (in the same class)
         //               they are referenced in.
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -365,7 +354,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testBackwardReferenceCanBeLowered() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -388,7 +376,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testVisibilityProtected() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "foo.Parent",
@@ -421,7 +408,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testImplementedProtectedMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "ui.Command",
@@ -475,7 +461,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testOnlyPublicFields() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -503,7 +488,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testEnum() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "model.Fruit",
@@ -540,7 +524,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testConventionExceptionConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -575,7 +558,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testConstructorImplicitSuper() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -615,7 +597,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testConstructorImplicitSuperTwice() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -662,7 +643,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testOverrideEnum() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -709,7 +689,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testEnumWithPrivateInterface() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -757,7 +736,6 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
     @Test
     void testEnumWithPrivateInterfaceIndirectCall() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -801,3 +779,5 @@ class TestUseDifferentVisibility extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testInterfaceFieldsMethods() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public interface Test {
@@ -77,7 +74,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testInterfaceTypeMembers() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public interface Test {
@@ -126,7 +122,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testImplicitlyFinalRecord() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public final record Test() {}"
         ), PROBLEM_TYPES);
@@ -145,7 +140,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testEnumMethodOverrideExtraFinal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public enum Field {
@@ -180,7 +174,6 @@ class TestRedundantModifier extends AbstractCheckTest {
         // NOTE: No field has a {} block, therefore the enum is final and the final modifier is redundant for
         //       the method
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public enum Field {
@@ -206,7 +199,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testFinalEnumMethodOverride() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Field",
             """
                 public enum Field {
@@ -226,7 +218,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testEnumTypeMembers() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public enum Test {
@@ -256,7 +247,6 @@ class TestRedundantModifier extends AbstractCheckTest {
     @Test
     void testEnumConstructorModifier() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public enum Test {
@@ -272,3 +262,5 @@ class TestRedundantModifier extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

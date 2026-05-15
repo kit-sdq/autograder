@@ -2,8 +2,6 @@ package de.firemage.autograder.core.integrated;
 
 import de.firemage.autograder.core.CodeModel;
 import de.firemage.autograder.api.LinterException;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.AbstractTempLocation;
 import de.firemage.autograder.core.file.SourceInfo;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.file.TempLocation;
@@ -29,7 +27,7 @@ class MethodHierarchyTest {
 
     @Test
     void testOverriddenMethod() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -61,7 +59,7 @@ class MethodHierarchyTest {
 
     @Test
     void testTripleHierarchy() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -106,7 +104,7 @@ class MethodHierarchyTest {
 
     @Test
     void testIndirectOverriddenMethod() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -144,7 +142,7 @@ class MethodHierarchyTest {
 
     @Test
     void testMultipleInterface() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -183,7 +181,7 @@ class MethodHierarchyTest {
 
     @Test
     void testInterfaceHierarchy() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -222,7 +220,7 @@ class MethodHierarchyTest {
 
     @Test
     void testInterfaceHierarchyDoubleImplement() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -261,7 +259,7 @@ class MethodHierarchyTest {
 
     @Test
     void testAnonymousOverride() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """
@@ -296,7 +294,7 @@ class MethodHierarchyTest {
 
     @Test
     void testLambdaOverride() throws LinterException, IOException {
-        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, Map.ofEntries(
+        var model = buildCodeModel(StringSourceInfo.fromSourceStrings(Map.ofEntries(
                 Map.entry(
                         "A",
                         """

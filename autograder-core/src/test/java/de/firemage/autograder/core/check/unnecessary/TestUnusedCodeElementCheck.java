@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -69,7 +67,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedFieldWithShadowing() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -101,7 +98,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedRecursiveMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -126,7 +122,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     // See: https://github.com/Feuermagier/autograder/issues/228
     void testFieldUsedByInvocation() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -163,7 +158,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedTypeParameter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -197,7 +191,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedNestedTypeParameter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-                JavaVersion.JAVA_17,
                 Map.ofEntries(
                         Map.entry(
                                 "Cat",
@@ -227,7 +220,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedWildcardBound() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-                JavaVersion.JAVA_17,
                 Map.ofEntries(
                         Map.entry(
                                 "Cat",
@@ -259,7 +251,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     void testOnlyWrittenVariable() throws LinterException, IOException {
         // For now, this is not detected as unused, because it might result in false positives
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -284,7 +275,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedMainMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -304,7 +294,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedMainMethodDefaultPackage() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -324,7 +313,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedExternalOverriddenMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -348,7 +336,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testIndirectlyUsedEnumVariant() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -380,7 +367,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Disabled("Unused types are not detected for now, because of potential false-positives")
     void testUnusedType() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -411,7 +397,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -434,7 +419,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedPrivateConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "StringUtils",
@@ -455,7 +439,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedPublicWithoutMain() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "StringUtils",
@@ -489,7 +472,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedPrivateStaticOverload() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Tasks",
@@ -524,7 +506,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedGenericConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "And",
@@ -557,7 +538,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedImplicitLambda() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -594,7 +574,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testInevitablyUnusedLambdaParam() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -624,7 +603,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testSerialVersionUID() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -653,7 +631,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedInterfaceParameter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -687,7 +664,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedParameterWhenMethodIsUsed() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -725,7 +701,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedRenamedParameter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-                JavaVersion.JAVA_17,
                 Map.ofEntries(
                         Map.entry(
                                 "Main",
@@ -759,7 +734,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testConventionExceptionConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -794,7 +768,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedMethodParamInImplementation() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -836,7 +809,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Disabled("This fails because of a spoon bug, see https://github.com/INRIA/spoon/issues/6645")
     void testInstanceOfPattern() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -873,7 +845,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testImplicitConstructorCall() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -915,7 +886,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testExplicitSuperConstructorCall() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -957,7 +927,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testImplicitConstructorCallWithoutConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -996,7 +965,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testAnonymousConstructorCall() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-                JavaVersion.JAVA_17,
                 Map.ofEntries(
                         Map.entry(
                                 "Main",
@@ -1032,7 +1000,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUnusedForCounter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -1059,7 +1026,6 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     @Test
     void testUsedForCounter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {

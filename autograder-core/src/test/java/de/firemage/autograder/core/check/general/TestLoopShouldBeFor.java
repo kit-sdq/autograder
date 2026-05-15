@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -50,7 +48,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testCounterOnlyUsedInLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -101,7 +98,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     )
     void testDifferentAssignments(String update, String expected) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -133,7 +129,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testNonNumericCounter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -154,7 +149,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testMultipleCounterUpdates() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -176,7 +170,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testUpdateNotLastStatementButLastUse() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -206,7 +199,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testSingleStatementBlock() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -234,7 +226,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testSingleStatement() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -260,7 +251,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testCounterDeclaredWithOtherVariablesBeforeLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -297,7 +287,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testMissingUpdate() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -318,7 +307,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testMissingLocalVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -338,7 +326,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testLocalVariableNotFirstStatementBeforeLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -362,7 +349,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testForEachOnlyCounting() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -391,7 +377,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testForEachList() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -422,7 +407,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testForEachOnlyCountingUsedAfterLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -453,7 +437,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testForEachVariableUsed() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -474,7 +457,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testUpdateNotLastStatementAndUsed() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -497,7 +479,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testCounterNotUsedInCondition() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -530,7 +511,6 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
     @Test
     void testCounterUsedAfterLoop() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -558,3 +538,5 @@ class TestLoopShouldBeFor extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

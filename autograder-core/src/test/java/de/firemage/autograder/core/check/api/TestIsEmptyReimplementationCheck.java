@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -36,7 +34,6 @@ class TestIsEmptyReimplementationCheck extends AbstractCheckTest {
     @Test
     void testStringIsEmpty() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -123,7 +120,6 @@ class TestIsEmptyReimplementationCheck extends AbstractCheckTest {
     )
     void testIsEmptyNotString(String expression, String arguments, String expected) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "import java.util.List; public class Test { public void foo(%s) { System.out.println(%s); } }".formatted(
                 arguments,
@@ -141,7 +137,6 @@ class TestIsEmptyReimplementationCheck extends AbstractCheckTest {
     @Test
     void testInlining() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -168,3 +163,5 @@ class TestIsEmptyReimplementationCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

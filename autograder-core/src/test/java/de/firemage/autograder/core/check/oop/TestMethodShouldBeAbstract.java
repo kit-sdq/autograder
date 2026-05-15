@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.oop;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -36,7 +34,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     @Test
     void testPrivateMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public abstract class Test {
@@ -58,7 +55,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     @Test
     void testAbstractMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public abstract class Test {
@@ -84,7 +80,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     @Test
     void testStaticMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public abstract class Test {
@@ -108,7 +103,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     @Test
     void testOverriddenMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public abstract class Test {
@@ -153,7 +147,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     )
     void testShouldBeAbstract(String returnType, String arguments, String body, String expected) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public abstract class Test {
@@ -187,7 +180,6 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     @Test
     void testCalledInSubclass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Command",
             """
                 public abstract class Command {
@@ -216,3 +208,5 @@ class TestMethodShouldBeAbstract extends AbstractCheckTest {
     }
 
 }
+
+

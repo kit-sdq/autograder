@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.complexity;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.check.AbstractCheckTest;
@@ -17,7 +15,6 @@ class TestExtendsObjectCheck extends AbstractCheckTest {
     @Test
     void testExtendsObject() throws LinterException, IOException {
         List<Problem> problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public class Test extends Object {}"
         ), List.of(ProblemType.EXPLICITLY_EXTENDS_OBJECT));
@@ -30,7 +27,6 @@ class TestExtendsObjectCheck extends AbstractCheckTest {
     @Test
     void testNotExtendsObject() throws LinterException, IOException {
         List<Problem> problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public class Test {}"
         ), List.of(ProblemType.EXPLICITLY_EXTENDS_OBJECT));
@@ -39,3 +35,5 @@ class TestExtendsObjectCheck extends AbstractCheckTest {
         assertEquals(0, problems.size());
     }
 }
+
+

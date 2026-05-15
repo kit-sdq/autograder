@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.api;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -55,7 +53,6 @@ class TestSequentialAddAll extends AbstractCheckTest {
     @Test
     void testListAdd() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -79,7 +76,6 @@ class TestSequentialAddAll extends AbstractCheckTest {
     @Test
     void testListAddPartiallyConstant() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -102,7 +98,6 @@ class TestSequentialAddAll extends AbstractCheckTest {
     @Test
     void testListAddConstants() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -132,7 +127,6 @@ class TestSequentialAddAll extends AbstractCheckTest {
     @Test
     void testEnumValuesAddAllUnorderedSet() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.HashSet;
@@ -163,7 +157,6 @@ class TestSequentialAddAll extends AbstractCheckTest {
     @Test
     void testEnumValuesAddAllOrderedList() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -246,3 +239,5 @@ class TestSequentialAddAll extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

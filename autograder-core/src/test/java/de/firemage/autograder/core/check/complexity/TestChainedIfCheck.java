@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.complexity;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -43,7 +41,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testNestedIfsWithImplicitElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -65,7 +62,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testNestedIfsWithOuterElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -88,7 +84,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testElseIfWithNestedIfNoElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -115,7 +110,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testElseIfWithNestedIfWithElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -142,7 +136,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testRegularIfElseIfElseChain() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -166,7 +159,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testElseWithNestedIfAndCode() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -192,7 +184,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testElseWithNestedIf() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -219,7 +210,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testCombineNestedIf() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -244,7 +234,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testNestedIfWithReturn() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -269,7 +258,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testComplicatedIfWithNested() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -303,7 +291,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testCombineNestedIfWithCode() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -327,7 +314,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     @Test
     void testCombineNestedIfTrailingCode() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -353,7 +339,6 @@ class TestChainedIfCheck extends AbstractCheckTest {
     void testIfWithoutBlock() throws LinterException, IOException {
         // this resulted in a crash in the past
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -369,3 +354,5 @@ class TestChainedIfCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

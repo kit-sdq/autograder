@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -95,7 +93,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testSingleClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Scanner;
@@ -131,7 +128,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testSinglePackageRoot() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("", "Test", true, true),
                 makeClass("", "Other", true, true)
@@ -147,7 +143,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testSinglePackageNotRoot() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "a.Test",
@@ -194,7 +189,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesRootOk() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("", "Test", true, true),
                 makeClass("", "Other", true, true),
@@ -209,7 +203,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesOkNotInRoot() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("", "Test", false, false),
                 makeClass("", "Other", false, false),
@@ -224,7 +217,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesOk() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("b", "Test", true, true),
                 makeClass("b", "Other", true, true),
@@ -239,7 +231,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesUsedInOneClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("b", "Inputs", true, false),
                 makeClass("b", "Outputs", false, true),
@@ -253,7 +244,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesOutputOkInputNotOk() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("b", "Inputs", true, false),
                 makeClass("b", "Outputs", false, true),
@@ -269,7 +259,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testMultiplePackagesAndMain() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("b", "Inputs", true, false),
                 makeClass("b", "Outputs", false, true),
@@ -284,7 +273,6 @@ class TestIOUISeparation extends AbstractCheckTest {
     @Test
     void testSinglePackageAndMain() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 makeClass("b", "Inputs", true, false),
                 makeClass("b", "Outputs", false, true),
@@ -296,3 +284,5 @@ class TestIOUISeparation extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

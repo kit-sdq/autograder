@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.general;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -32,7 +30,6 @@ class TestStringCompareCheck extends AbstractCheckTest {
     @Test
     void testHiddenUnusedParentField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -57,3 +54,5 @@ class TestStringCompareCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+
