@@ -4,7 +4,6 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.api.JavaVersion;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +30,6 @@ class TestMergedProblems extends AbstractCheckTest {
         List<String> fields = generateViolations(10).toList();
 
         var problems = super.check(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",
@@ -78,7 +76,6 @@ class TestMergedProblems extends AbstractCheckTest {
         List<String> fields = generateViolations(10).toList();
 
         var problems = super.check(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",
@@ -136,7 +133,6 @@ class TestMergedProblems extends AbstractCheckTest {
         List<String> fields = generateViolations(10).toList();
 
         var problems = super.check(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",

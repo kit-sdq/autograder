@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -33,7 +31,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testHiddenUnusedParentField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Parent",
@@ -79,7 +76,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testHiddenParentField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Parent",
@@ -131,7 +127,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testLocalVariableHidesField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -171,7 +166,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testLocalVariableHidesFields() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Parent",
@@ -227,7 +221,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testStatic() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Parent",
@@ -278,7 +271,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testInheritance() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "A",
@@ -374,7 +366,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testException() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "SomeException",
@@ -398,7 +389,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testInStaticContext() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -427,7 +417,6 @@ class TestAvoidShadowing extends AbstractCheckTest {
     @Test
     void testArrayParamHidesAttribute() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -449,3 +438,5 @@ class TestAvoidShadowing extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

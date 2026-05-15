@@ -1,6 +1,5 @@
 package de.firemage.autograder.core.check.api;
 
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
@@ -40,7 +39,6 @@ class TestUseEntrySet extends AbstractCheckTest {
     @Test
     void testUsesKeySetToGetValues() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.*;
@@ -100,7 +98,6 @@ class TestUseEntrySet extends AbstractCheckTest {
         }
 
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.*;
@@ -150,7 +147,6 @@ class TestUseEntrySet extends AbstractCheckTest {
     @Test
     void testResolvesGeneric() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;

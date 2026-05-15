@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestReassignedParameterCheck extends AbstractCheckTest {
     @Test
     void testMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -51,7 +48,6 @@ class TestReassignedParameterCheck extends AbstractCheckTest {
     @Test
     void testConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test<T> {
@@ -84,7 +80,6 @@ class TestReassignedParameterCheck extends AbstractCheckTest {
     @Test
     void testRecordConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 record Test(int a) {
@@ -107,7 +102,6 @@ class TestReassignedParameterCheck extends AbstractCheckTest {
     @Test
     void testLambda() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.BiConsumer;
@@ -128,3 +122,5 @@ class TestReassignedParameterCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

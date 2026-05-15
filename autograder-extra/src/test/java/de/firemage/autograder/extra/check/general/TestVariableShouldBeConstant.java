@@ -6,7 +6,6 @@ import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -39,7 +38,6 @@ class TestVariableShouldBeConstant extends AbstractCheckTest {
     @Test
     void testDefaultVisibility() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -56,7 +54,6 @@ class TestVariableShouldBeConstant extends AbstractCheckTest {
     @Test
     void testOtherVisibility() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -73,7 +70,6 @@ class TestVariableShouldBeConstant extends AbstractCheckTest {
     @Test
     void testLocalFinalVariableWithWrongNamingConvention() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {

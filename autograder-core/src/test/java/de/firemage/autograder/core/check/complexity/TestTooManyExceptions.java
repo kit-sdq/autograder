@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
@@ -63,7 +62,7 @@ class TestTooManyExceptions  extends AbstractCheckTest {
     @Test
     void testTooManyExceptions() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
-            StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, makeNExceptions(4, 2)),
+            StringSourceInfo.fromSourceStrings(makeNExceptions(4, 2)),
             PROBLEM_TYPES
         );
 
@@ -75,7 +74,7 @@ class TestTooManyExceptions  extends AbstractCheckTest {
     @Test
     void testNotTooManyExceptions() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
-            StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, makeNExceptions(4, 1)),
+            StringSourceInfo.fromSourceStrings(makeNExceptions(4, 1)),
             PROBLEM_TYPES
         );
 

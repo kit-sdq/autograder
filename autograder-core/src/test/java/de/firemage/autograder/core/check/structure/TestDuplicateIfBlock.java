@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.structure;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -36,7 +34,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testMissingThen() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -55,7 +52,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfTerminal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -85,7 +81,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfImplicitElseIf() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -110,7 +105,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfExtraStatement() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -137,7 +131,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfExtraStatementTerminal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -169,7 +162,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testMultipleNestedIf() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -232,7 +224,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testFollowingIfTerminal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -271,7 +262,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testFollowingIf() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -304,7 +294,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfElseTerminal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -332,7 +321,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfElse() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -364,7 +352,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfNoElse() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -391,7 +378,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testIfElseIfElseIfElse() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -420,7 +406,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testDuplicateNestedIfElseIf() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -451,7 +436,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testDuplicateNestedIfElseIfTerminal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -482,7 +466,6 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
     @Test
     void testSimilarBranches() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 record Target(int defense) {
@@ -520,3 +503,5 @@ class TestDuplicateIfBlock extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

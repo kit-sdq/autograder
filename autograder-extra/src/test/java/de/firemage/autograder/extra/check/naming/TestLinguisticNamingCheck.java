@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +50,6 @@ class TestLinguisticNamingCheck extends AbstractCheckTest {
     @Test
     void testSetter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -96,7 +94,6 @@ class TestLinguisticNamingCheck extends AbstractCheckTest {
     @Test
     void testGetter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -120,7 +117,6 @@ class TestLinguisticNamingCheck extends AbstractCheckTest {
     @Test
     void testBoolean() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -165,7 +161,6 @@ class TestLinguisticNamingCheck extends AbstractCheckTest {
     @Test
     void testVariablesToIgnore() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -181,7 +176,6 @@ class TestLinguisticNamingCheck extends AbstractCheckTest {
     @Test
     void testEnumValue() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "ResultState",
             """
                 public enum ResultState {

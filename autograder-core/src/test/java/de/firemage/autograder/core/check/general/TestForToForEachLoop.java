@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testArray() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -75,7 +72,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testList() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -176,7 +172,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testReverseAccess() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -197,7 +192,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testIndexInitOutsideLoop() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -234,7 +228,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testIndexNotZero() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -256,7 +249,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testAccessNextElement() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -278,7 +270,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testOnlyArrayWrite() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -309,7 +300,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testTransferListIndexToArrayIndex() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -336,7 +326,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testIndexSameArrayFieldDifferentInstances() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -360,7 +349,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testLoopWithDifferentListInCondition() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -383,7 +371,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testGenerics() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -406,7 +393,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testFieldAccess() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Node",
             """
                 class Node {
@@ -433,7 +419,6 @@ class TestForToForEachLoop extends AbstractCheckTest {
     @Test
     void testMutatingCollection() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.ArrayList;
@@ -459,3 +444,5 @@ class TestForToForEachLoop extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

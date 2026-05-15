@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testSuperclass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "A",
@@ -74,7 +71,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testGeneralizationSpecialization() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "A",
@@ -111,7 +107,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testOverrideThrows() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "A",
@@ -139,7 +134,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testAbstractMethodHidesObjectMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Token",
             """
             public abstract class Token {
@@ -156,7 +150,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testMissingOverrideOnInterface() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "RunnableImpl",
             """
             public class RunnableImpl implements Runnable {
@@ -172,7 +165,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testAnonymousClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "AnonymousClass",
             """
                 public class AnonymousClass {
@@ -196,7 +188,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testEnum() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "MyEnum",
             """
                 public enum MyEnum {
@@ -220,7 +211,6 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
     @Test
     void testEnumWithInterface() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "MyEnum",
             """
                 public enum MyEnum implements Runnable {
@@ -239,3 +229,5 @@ class TestOverrideAnnotationMissing extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

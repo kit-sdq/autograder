@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testQualifiedSimpleVariableType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -53,7 +50,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testQualifiedNestedVariableType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;
@@ -82,7 +78,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testQualifiedArrays() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Arrays;
@@ -124,7 +119,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testNestedGenericQualifiedTypes() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -148,7 +142,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testExtraArraySyntax() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.List;
@@ -173,7 +166,6 @@ class TestImportTypes extends AbstractCheckTest {
     @Test
     void testForEach() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;
@@ -189,3 +181,5 @@ class TestImportTypes extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

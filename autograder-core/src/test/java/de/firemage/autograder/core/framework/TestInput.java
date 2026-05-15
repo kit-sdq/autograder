@@ -1,7 +1,6 @@
 package de.firemage.autograder.core.framework;
 
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.SourceInfo;
 import de.firemage.autograder.core.file.SourcePath;
 import de.firemage.autograder.core.file.StringSourceInfo;
@@ -38,7 +37,7 @@ public final class TestInput {
 
         // Parse annotations before creating the source info because parseAnnotations rewrites the sources
         this.expectedProblems = parseAnnotations(sources, path.getFileName().toString());
-        this.sourceInfo = StringSourceInfo.fromSourceStrings(JavaVersion.JAVA_17, sources);
+        this.sourceInfo = StringSourceInfo.fromSourceStrings(sources);
     }
 
     public String testName() {

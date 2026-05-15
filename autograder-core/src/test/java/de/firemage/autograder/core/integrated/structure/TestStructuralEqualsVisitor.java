@@ -1,6 +1,5 @@
 package de.firemage.autograder.core.integrated.structure;
 
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.file.TempLocation;
 import de.firemage.autograder.core.file.UploadedFile;
@@ -26,7 +25,7 @@ class TestStructuralEqualsVisitor {
 
         UploadedFile file;
         try {
-            file = UploadedFile.build(StringSourceInfo.fromSourceString(JavaVersion.JAVA_17, "Test", "public class Test { void t(%s) { %s; } }".formatted(
+            file = UploadedFile.build(StringSourceInfo.fromSourceString("Test", "public class Test { void t(%s) { %s; } }".formatted(
                 arguments,
                 statement
             )), TempLocation.random(), y -> {}, null);

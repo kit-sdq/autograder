@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +30,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testMultipleAssignments() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -57,7 +54,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testAssignedOnlyInConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -85,7 +81,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testInitializedAndAssignedInConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -106,7 +101,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testAlreadyFinal() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -127,7 +121,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testPartialConstructorInit() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "A",
             """
                 abstract class A {
@@ -152,7 +145,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticVariableInlineAssignedInConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 class User {
@@ -174,7 +166,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticVariableOnlyInitialized() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 class User {
@@ -198,7 +189,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticVariableAssignedConstantInConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 class User {
@@ -221,7 +211,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticVariableDynamicAssignment() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 class User {
@@ -244,7 +233,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testRecord() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public record User(String name, int id) {
@@ -264,7 +252,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testClassNoConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public abstract class User {
@@ -290,7 +277,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testAbstractClassProtectedFields() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "User",
@@ -337,7 +323,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testPartialInitMultipleConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -367,7 +352,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testPartialInitMultipleConstructor2() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -399,7 +383,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testMultipleWriteInConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -427,7 +410,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Disabled("There is not much value in implementing this")
     void testConditionalWriteInConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -457,7 +439,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testConditionalWriteMultipleInConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -487,7 +468,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testConditionalWriteNoElseConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -516,7 +496,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testConditionalWritePartialInit() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -542,7 +521,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticFieldOnlyWriteInMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -570,7 +548,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testStaticFieldNoWrite() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -594,7 +571,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testNoConstructorButValue() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -614,7 +590,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testRecordImplicitConstructor() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public record User(int id, String name) {
@@ -630,7 +605,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Disabled("Some spoon bug in 11.1.1-SNAPSHOT")
     void testRecordStaticField() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public record User(int id, String name) {
@@ -649,7 +623,6 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
     @Test
     void testInitExtraMethod() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "User",
             """
                 public class User {
@@ -671,3 +644,5 @@ class TestFieldShouldBeFinal extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

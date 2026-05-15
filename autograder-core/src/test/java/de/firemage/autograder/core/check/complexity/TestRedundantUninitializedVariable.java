@@ -5,9 +5,7 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import org.junit.jupiter.api.Test;
+import de.firemage.autograder.core.check.AbstractCheckTest;import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +19,6 @@ class TestRedundantUninitializedVariable  extends AbstractCheckTest {
     @Test
     void testMessage() throws LinterException, IOException {
         List<Problem> problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public class Test { void foo() { final String i; /* some comment */ i = \"hello\"; } }"
         ), List.of(ProblemType.REDUNDANT_UNINITIALIZED_VARIABLE));
@@ -42,3 +39,5 @@ class TestRedundantUninitializedVariable  extends AbstractCheckTest {
         );
     }
 }
+
+

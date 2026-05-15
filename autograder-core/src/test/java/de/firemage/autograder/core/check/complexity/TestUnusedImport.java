@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -34,7 +32,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testDuplicateImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.util.List;
@@ -52,7 +49,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testSingleUnusedImportType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.io.File;
@@ -69,7 +65,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testSingleUsedImportType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.io.File;
@@ -86,7 +81,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testMultipleUnusedImportType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.io.File;
@@ -106,7 +100,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testStaticTypeAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.util.List;
@@ -126,7 +119,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testOnlyUsedInThrows() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             import java.io.IOException;
@@ -143,7 +135,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedInGenerics() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -173,7 +164,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedStaticImportField() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -192,7 +182,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedStaticImportMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -211,7 +200,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedStaticImportField() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -230,7 +218,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedStaticImportMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -249,7 +236,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testPartiallyUsedTypeImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -283,7 +269,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedTypeImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -317,7 +302,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testConstantsUsed() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -347,7 +331,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testImportedConstantUnused() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -376,7 +359,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testConstantUsedWithInvocation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -408,7 +390,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedPackagePrivateMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "foo.Test",
                 """
@@ -441,7 +422,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedExtends() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -459,7 +439,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedImplements() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -477,7 +456,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedArrayType() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -496,7 +474,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedArrayInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -517,7 +494,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Disabled("Too much work to implement for an edge case")
     void testUnusedWithMemberAndInherited() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "foo.Test",
                 """
@@ -551,7 +527,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testImportSamePackage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "foo.Test",
                 """
@@ -581,7 +556,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedJavaLangImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -602,7 +576,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedJavaLangImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -622,7 +595,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedStaticJavaLangImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -643,7 +615,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Disabled("Some spoon bug that I can't be bothered to report, debug or fix. Who writes code like this anyway?")
     void testUsedStaticJavaLangImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -664,7 +635,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedJavaLangNestedClassImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -685,7 +655,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedJavaLangNestedClassImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -704,7 +673,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedSamePackageNestedClassImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "foo.Test",
                 """
@@ -733,7 +701,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedSamePackageNestedClassImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "foo.Test",
                 """
@@ -763,7 +730,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUsedJavaLangSubpackageImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -782,7 +748,6 @@ class TestUnusedImport extends AbstractCheckTest {
     @Test
     void testUnusedJavaLangSubpackageImport() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -802,7 +767,6 @@ class TestUnusedImport extends AbstractCheckTest {
     void testUsedJavadoc(@TempDir Path tempDir) throws IOException, LinterException {
         // Javadoc Parsing requires the file to be on disk
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.of(
                 "Test",
                 """
@@ -833,3 +797,5 @@ class TestUnusedImport extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

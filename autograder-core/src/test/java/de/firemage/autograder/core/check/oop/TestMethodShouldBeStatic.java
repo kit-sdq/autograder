@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -36,7 +34,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testMethodWithInstanceAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -58,7 +55,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testMethodWithImplicitInstanceAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -80,7 +76,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testMethodEmpty() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -99,7 +94,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testThisObjectAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -125,7 +119,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testStaticMethodInvocation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -149,7 +142,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testExecutableReference() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Function;
@@ -180,7 +172,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testSuperAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Function;
@@ -205,7 +196,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testStaticFieldAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -228,7 +218,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testOverriddenMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Parent",
@@ -261,7 +250,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testInterface() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public interface Test {
@@ -278,7 +266,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testStandaloneThis() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Response",
             """
                 public enum Response {
@@ -300,7 +287,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testEnumInvocationWithThis() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Response",
             """
                 import java.util.Map;
@@ -329,7 +315,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testImplicitThisMethodCall() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Response",
             """
                 public enum Response {
@@ -356,7 +341,6 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
     @Test
     void testEmptyConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Data",
             """
                 public class Data {
@@ -368,3 +352,5 @@ class TestMethodShouldBeStatic extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

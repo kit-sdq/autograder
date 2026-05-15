@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.naming;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -35,7 +33,6 @@ class TestBooleanIdentifierCheck extends AbstractCheckTest {
     @Test
     void testGetter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -53,7 +50,6 @@ class TestBooleanIdentifierCheck extends AbstractCheckTest {
     @Test
     void testCorrectlyNamedGetter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -78,7 +74,6 @@ class TestBooleanIdentifierCheck extends AbstractCheckTest {
     @Test
     void testBooleanArray() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -92,3 +87,5 @@ class TestBooleanIdentifierCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

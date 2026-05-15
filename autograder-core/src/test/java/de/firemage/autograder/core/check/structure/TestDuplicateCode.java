@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +33,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testDuplicateDifferingNonConstantExpression() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "StringUtils",
             """
                 public class StringUtils {
@@ -90,7 +87,6 @@ class TestDuplicateCode extends AbstractCheckTest {
         // but this is not a good solution, therefore the duplicate code should be ignored in this case.
 
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -156,7 +152,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testReturnsSingleVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -217,7 +212,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testReassignsSingleVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -282,7 +276,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testReassignsSingleVariableWithUnrelated() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -351,7 +344,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testReassignsMultipleVariablesUsedAfterDuplicate() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -422,7 +414,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Test
     void testReassignsMultipleVariablesOnlyUsedInDuplicate() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -494,7 +485,6 @@ class TestDuplicateCode extends AbstractCheckTest {
     @Disabled("Will be implemented in the future")
     void testReassignsMultipleVariablesOnlyUsedInDuplicateRenamed() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -562,3 +552,5 @@ class TestDuplicateCode extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

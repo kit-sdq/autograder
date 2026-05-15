@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,7 +24,6 @@ class TestInheritanceBadPractices extends AbstractCheckTest {
     @Test
     void testCompositionMessage() throws LinterException, IOException {
         var problems = this.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
             public class Test {}
@@ -53,7 +51,6 @@ class TestInheritanceBadPractices extends AbstractCheckTest {
     @Test
     void testInheritsUnimplementedInterfaceMethods() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Command",

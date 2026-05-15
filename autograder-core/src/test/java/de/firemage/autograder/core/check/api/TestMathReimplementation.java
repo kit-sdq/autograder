@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -39,7 +37,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testSqrt() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -60,7 +57,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testHypot() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -97,7 +93,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testMax() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -153,7 +148,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testMaxChangedAssignment() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.List;
@@ -174,7 +168,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testMin() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -231,7 +224,6 @@ class TestMathReimplementation extends AbstractCheckTest {
     @Test
     void testMinMaxWithElse() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -281,3 +273,5 @@ class TestMathReimplementation extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

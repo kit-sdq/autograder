@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -34,7 +32,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testLiteralReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -51,7 +48,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testConstantReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -71,7 +67,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testSimpleCase() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -92,7 +87,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testComments() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -119,7 +113,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testTernaryReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -138,7 +131,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testMethodCall() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -163,7 +155,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testAssert() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -184,7 +175,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testSwitchCase() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -207,7 +197,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testFollowingStatementWithoutUse() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -226,7 +215,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testVariableForSuppressWarning() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "TestCase",
             """
                 public class TestCase<T> {
@@ -248,7 +236,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testMapReference() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.Map;
@@ -272,7 +259,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testFinalVariableReturn() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -292,7 +278,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testMethodCapture() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Supplier;
@@ -312,7 +297,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testRedundantVariableInLambda() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Supplier;
@@ -334,7 +318,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testRedundantVariableInAnonymousClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.function.Supplier;
@@ -358,7 +341,6 @@ class TestRedundantVariable extends AbstractCheckTest {
     @Test
     void testRedundantSwitchExpression() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -378,3 +360,5 @@ class TestRedundantVariable extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

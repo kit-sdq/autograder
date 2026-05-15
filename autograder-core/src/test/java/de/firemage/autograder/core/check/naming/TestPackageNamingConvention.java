@@ -5,9 +5,7 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import org.junit.jupiter.api.Test;
+import de.firemage.autograder.core.check.AbstractCheckTest;import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +29,6 @@ class TestPackageNamingConvention extends AbstractCheckTest {
     @Test
     void testDefaultPackage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             "public class Test {}"
         ), PROBLEM_TYPES);
@@ -43,7 +40,6 @@ class TestPackageNamingConvention extends AbstractCheckTest {
     @Test
     void testSingleViolation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "com.Example.Test",
             """
             package com.Example;
@@ -59,7 +55,6 @@ class TestPackageNamingConvention extends AbstractCheckTest {
     @Test
     void testMultipleViolations() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 dummySourceEntry("com.Example", "Test"),
                 dummySourceEntry("com.Example.Pack", "ExamplePack"),
@@ -76,7 +71,6 @@ class TestPackageNamingConvention extends AbstractCheckTest {
     @Test
     void testFalsePositive01() throws IOException, LinterException  {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 dummySourceEntry("edu.kit", "Test"),
                 dummySourceEntry("edu.kit.informatik", "Main")
@@ -86,3 +80,5 @@ class TestPackageNamingConvention extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

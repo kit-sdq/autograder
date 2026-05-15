@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
@@ -132,7 +131,6 @@ class TestProblematicEqualsHashCodeComparable extends AbstractCheckTest {
     @Test
     void testComparator() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",
@@ -162,7 +160,6 @@ class TestProblematicEqualsHashCodeComparable extends AbstractCheckTest {
     @Test
     void testEqualsUsingHashCode() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",
@@ -198,7 +195,6 @@ class TestProblematicEqualsHashCodeComparable extends AbstractCheckTest {
     @Test
     void testEqualsUnsafeCast() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Test",

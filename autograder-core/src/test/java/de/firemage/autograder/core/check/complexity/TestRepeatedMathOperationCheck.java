@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +29,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testRepeat() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -62,7 +59,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testMinimumThresholdPlus() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -94,7 +90,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testMinimumThresholdMul() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -126,7 +121,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testFalsePositiveFieldAccess() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -145,7 +139,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testRecursiveSuggestion() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -168,7 +161,6 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
     @Test
     void testMulAndPlusComplexOptimization() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -183,3 +175,5 @@ class TestRepeatedMathOperationCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

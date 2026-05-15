@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +31,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testNotComplex() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -68,7 +66,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testComplexWithoutComment() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -101,7 +98,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testComplexWithComment() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -132,7 +128,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testFormatString() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -159,7 +154,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testContext() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Example",
@@ -207,7 +201,6 @@ class TestRegexCheck extends AbstractCheckTest {
     @Test
     void testReproduceCrash() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "B",

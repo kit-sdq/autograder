@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.general;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -38,7 +36,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Test
     void testForWithUsedCounter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -58,7 +55,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Test
     void testForWithoutInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -78,7 +74,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Test
     void testForWithoutInitAndUpdate() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -105,7 +100,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Test
     void testEndlessFor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -125,7 +119,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Disabled("Might be implemented in the future")
     void testUnusedCounter() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -153,7 +146,6 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
     @Disabled("Might be implemented in the future")
     void testUnusedCounterExternalInit() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 class Test {
@@ -178,3 +170,5 @@ class TestLoopShouldBeWhile extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

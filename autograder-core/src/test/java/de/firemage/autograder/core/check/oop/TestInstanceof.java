@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.oop;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -34,7 +32,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testRegularInstanceof() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -60,7 +57,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testInstanceofInEquals() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -81,7 +77,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testGetClass() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -104,7 +99,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testTryCatch() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -129,7 +123,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testGetClassInToString() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -148,7 +141,6 @@ class TestInstanceof extends AbstractCheckTest {
     @Test
     void testAssignableFrom() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 // I am not sure how one can call isAssignableFrom, without using getClass
@@ -172,3 +164,5 @@ class TestInstanceof extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

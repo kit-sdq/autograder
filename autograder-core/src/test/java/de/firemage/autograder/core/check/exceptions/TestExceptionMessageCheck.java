@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -30,7 +28,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testUtilityClassConstructor() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -50,7 +47,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testCustomException() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 class Bar extends Exception {
@@ -73,7 +69,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testEmptyMessageString() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -102,7 +97,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testExceptionMessage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -125,7 +119,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testSwitchDefault() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -146,7 +139,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testExceptionCatchAndThrow() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -169,7 +161,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testExceptionFactoryMethod() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -200,7 +191,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testCustomExceptionNoMessage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -233,7 +223,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testCustomExceptionInvalidMessage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -266,7 +255,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testCustomExceptionValidMessage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -297,7 +285,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testExceptionWithFunctionCall() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -316,7 +303,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testExceptionOverridingGetMessage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -347,7 +333,6 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
     @Test
     void testEmptyException() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "MyException",
@@ -374,3 +359,5 @@ class TestExceptionMessageCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

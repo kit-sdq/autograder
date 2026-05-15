@@ -5,7 +5,6 @@ import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
 import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +27,6 @@ class TestUnnecessaryComment extends AbstractCheckTest {
     void testPlaceholder() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -50,7 +48,6 @@ class TestUnnecessaryComment extends AbstractCheckTest {
     void testCommentSpacer() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -72,7 +69,6 @@ class TestUnnecessaryComment extends AbstractCheckTest {
     void testVeryLongComment() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Test",
                 """
                     public class Test {
@@ -106,7 +102,6 @@ class TestUnnecessaryComment extends AbstractCheckTest {
     void testPartiallyFilledJavadoc() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "edu.kit.kastel.Main",
                 """
                     package edu.kit.kastel;
@@ -129,7 +124,6 @@ class TestUnnecessaryComment extends AbstractCheckTest {
     void testPartiallyFilledJavadocNoPackage() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(
             StringSourceInfo.fromSourceString(
-                JavaVersion.JAVA_17,
                 "Main",
                 """
                     /**

@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -35,7 +33,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testLocalAssignment() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -69,7 +66,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testNestedTypes() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -103,7 +99,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testInArray() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -147,7 +142,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testAllowedContext() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -212,7 +206,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testConcreteCollectionInTypes() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -263,7 +256,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     @Test
     void testRawTypes() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "TestRawTypes",
             """
                 import java.util.HashSet;
@@ -373,7 +365,6 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
     )
     void testSequencedCollection(String type) throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.*;
@@ -387,3 +378,5 @@ class TestConcreteCollectionCheck extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

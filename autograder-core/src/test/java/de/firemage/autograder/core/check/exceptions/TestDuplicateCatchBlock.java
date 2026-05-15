@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.exceptions;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -33,7 +31,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testMotivation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "IllegalPlayerNameException",
@@ -110,7 +107,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testAccessesDifferentVariables() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -140,7 +136,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testDifferentCatchBlocks() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -167,7 +162,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testSingleCatchBlock() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -192,7 +186,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testMergeMultiTypeBlock() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -225,7 +218,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testDifferingVariableNames() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -258,7 +250,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testTryWithoutCatch() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             import java.util.Scanner;
@@ -283,7 +274,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     @Test
     void testMergeNotFirstCatch() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -322,7 +312,6 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
 
         String largeDuplicateCode = "System.out.println(\"1\");%n".formatted().repeat(30);
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
             public class Main {
@@ -347,3 +336,5 @@ class TestDuplicateCatchBlock extends AbstractCheckTest {
     }
 
 }
+
+

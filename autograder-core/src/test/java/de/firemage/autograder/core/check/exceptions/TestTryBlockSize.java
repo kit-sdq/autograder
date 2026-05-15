@@ -1,7 +1,5 @@
 package de.firemage.autograder.core.check.exceptions;
-
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.api.LinterException;
+import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
@@ -33,7 +31,6 @@ class TestTryBlockSize extends AbstractCheckTest {
     @Test
     void testNothingThrows() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 public class Main {
@@ -61,7 +58,6 @@ class TestTryBlockSize extends AbstractCheckTest {
     @Test
     void testMotivation() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.Scanner;
@@ -116,7 +112,6 @@ class TestTryBlockSize extends AbstractCheckTest {
     @Test
     void testOnlyTrailing() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.Scanner;
@@ -172,7 +167,6 @@ class TestTryBlockSize extends AbstractCheckTest {
     @Test
     void testUsesVariable() throws IOException, LinterException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.Scanner;
@@ -219,3 +213,5 @@ class TestTryBlockSize extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+

@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.ProblemType;
 import de.firemage.autograder.core.file.StringSourceInfo;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import org.junit.jupiter.api.Test;
+import de.firemage.autograder.core.check.AbstractCheckTest;import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +18,6 @@ public class TestCharRange extends AbstractCheckTest {
     @Test
     void testIsDigit() throws LinterException, IOException {
         var problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -49,7 +46,6 @@ public class TestCharRange extends AbstractCheckTest {
     @Test
     void testIsLowerCase() throws LinterException, IOException {
         var problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -78,7 +74,6 @@ public class TestCharRange extends AbstractCheckTest {
     @Test
     void testIsNotLowerCase() throws LinterException, IOException {
         var problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -107,7 +102,6 @@ public class TestCharRange extends AbstractCheckTest {
     @Test
     void testNormalization() throws LinterException, IOException {
         var problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -135,7 +129,6 @@ public class TestCharRange extends AbstractCheckTest {
     @Test
     void testIsUpperCase() throws LinterException, IOException {
         var problems = super.check(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 public class Test {
@@ -161,3 +154,4 @@ public class TestCharRange extends AbstractCheckTest {
         );
     }
 }
+

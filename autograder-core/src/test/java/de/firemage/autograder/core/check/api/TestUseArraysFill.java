@@ -4,9 +4,7 @@ import de.firemage.autograder.api.LinterException;
 import de.firemage.autograder.core.LocalizedMessage;
 import de.firemage.autograder.core.Problem;
 import de.firemage.autograder.core.ProblemType;
-import de.firemage.autograder.core.check.AbstractCheckTest;
-import de.firemage.autograder.api.JavaVersion;
-import de.firemage.autograder.core.file.StringSourceInfo;
+import de.firemage.autograder.core.check.AbstractCheckTest;import de.firemage.autograder.core.file.StringSourceInfo;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -34,7 +32,6 @@ class TestUseArraysFill extends AbstractCheckTest {
     @Test
     void testArraysFill() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Main",
             """
                 import java.util.Arrays;
@@ -68,7 +65,6 @@ class TestUseArraysFill extends AbstractCheckTest {
     @Test
     void testArraysFillMutableClass() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceString(
-            JavaVersion.JAVA_17,
             "Test",
             """
                 import java.util.ArrayList;
@@ -102,7 +98,6 @@ class TestUseArraysFill extends AbstractCheckTest {
     @Test
     void testArraysFillRecursiveType() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -133,7 +128,6 @@ class TestUseArraysFill extends AbstractCheckTest {
     @Test
     void testHasNoJavaUtilImports() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -163,7 +157,6 @@ class TestUseArraysFill extends AbstractCheckTest {
     @Test
     void testAssignedInvocation() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
-            JavaVersion.JAVA_17,
             Map.ofEntries(
                 Map.entry(
                     "Main",
@@ -193,3 +186,5 @@ class TestUseArraysFill extends AbstractCheckTest {
         problems.assertExhausted();
     }
 }
+
+
