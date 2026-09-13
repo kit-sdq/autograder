@@ -43,7 +43,7 @@ jobs:
       id: jve   
 
     - name: Java without Cache
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@v6
       with:
         java-version: ${{ steps.jve.outputs.java_major_version }}
         distribution: 'temurin'
