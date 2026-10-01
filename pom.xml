@@ -126,11 +126,13 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.7.3</version>
+                <version>1.8.0</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    <defaultOperation>keep</defaultOperation>
                     <pomElements>
+                        <version>resolve</version>
+                        <parent>resolve</parent>
                         <dependencyManagement>expand</dependencyManagement>
                         <dependencies>expand</dependencies>
                     </pomElements>

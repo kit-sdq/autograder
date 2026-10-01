@@ -85,10 +85,10 @@ public class PMDLinter implements CodeLinter<PMDCheck> {
             renderer.setSourceFiles(collector.getCollectedFiles());
 
             pmd.performAnalysis();
-        } catch (Exception exception) {
+        } catch (Throwable exception) {
             failureConsumer.accept(new FailureInformation(
                 "[%s]".formatted(rules.stream().map(Rule::getName).collect(Collectors.joining(", "))),
-                exception
+                new IllegalStateException("PMD failed to execute", exception)
             ));
         }
 
