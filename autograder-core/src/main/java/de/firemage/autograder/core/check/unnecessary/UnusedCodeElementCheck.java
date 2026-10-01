@@ -165,6 +165,7 @@ public class UnusedCodeElementCheck extends IntegratedCheck {
                 if (MethodUtil.isInOverridingMethod(ctParameter)
                     || MethodUtil.isInMainMethod(ctParameter)
                     || ctParameter.getParent() instanceof CtLambda<?>
+                    || (ctParameter.getParent() instanceof CtConstructor<?> constructor && constructor.isCompactConstructor())
                     || ctParameter.getParent(CtInterface.class) != null) {
                     super.visitCtParameter(ctParameter);
                     return;

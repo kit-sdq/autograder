@@ -156,6 +156,35 @@ class TestUnusedCodeElementCheck extends AbstractCheckTest {
     }
 
     @Test
+    void testRecordComponentsUsedThroughAccessorsWithCompactConstructor() throws LinterException, IOException {
+        ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
+            Map.of(
+                "Main",
+                """
+                import java.util.List;
+
+                public class Main {
+                    record Route(List<String> nodes, int utility, int preference) {
+                        public Route {
+                            nodes = List.copyOf(nodes);
+                        }
+                    }
+
+                    public static void main(String[] args) {
+                        Route route = new Route(List.of("start", "end"), 1, 2);
+                        System.out.println(route.nodes());
+                        System.out.println(route.utility());
+                        System.out.println(route.preference());
+                    }
+                }
+                """
+            )
+        ), PROBLEM_TYPES);
+
+        problems.assertExhausted();
+    }
+
+    @Test
     void testUnusedTypeParameter() throws LinterException, IOException {
         ProblemIterator problems = this.checkIterator(StringSourceInfo.fromSourceStrings(
             Map.ofEntries(
