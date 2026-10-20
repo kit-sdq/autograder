@@ -39,14 +39,32 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: joshlong/java-version-export-github-action@v28
-      id: jve   
+    - name: Determine Java version
+      id: jve
+      shell: bash
+      run: |
+        for expr in maven.compiler.target maven.compiler.release java.version; do
+          v=$(mvn -B -q -N help:evaluate -DforceStdout -Dexpression="$expr" 2>/dev/null || true)
+          v=${v#1.}
+          if [[ "$v" =~ ^[0-9]+ ]]; then
+            echo "java_major_version=${BASH_REMATCH[0]}" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+        done
+        echo "::error::Could not determine the Java version from the POM"
+        exit 1
 
     - name: Java without Cache
       uses: actions/setup-java@v6
       with:
         java-version: ${{ steps.jve.outputs.java_major_version }}
         distribution: 'temurin'
+
+    # Maven 3.10 breaks snapshot deployment to Central (HTTP 401)
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: 3.9.16
 
     - name: Maven Verify
       shell: bash
