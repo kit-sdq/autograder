@@ -8,6 +8,12 @@
       "description": "Automerge non-major updates",
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
+    },
+    {
+      "description": "Maven 3.10 breaks publishing to Sonatype Central",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["maven"],
+      "allowedVersions": "<3.10.0"
     }
   ]
 }
