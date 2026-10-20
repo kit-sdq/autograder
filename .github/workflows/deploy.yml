@@ -48,6 +48,12 @@ jobs:
         java-version: ${{ steps.jve.outputs.java_major_version }}
         distribution: 'temurin'
 
+    # Maven 3.10 breaks snapshot deployment to Central (HTTP 401)
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: 3.9.16
+
     - name: Maven Verify
       shell: bash
       run: mvn -U -B verify
