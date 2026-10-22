@@ -12,7 +12,7 @@
     <artifactId>autograder-extra</artifactId>
     <name>autograder-extra</name>
     <description>Extra checks for the autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-extra</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-extra</url>
 
     <properties>
         <surefire.version>3.6.0</surefire.version>

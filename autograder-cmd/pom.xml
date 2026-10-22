@@ -12,7 +12,7 @@
     <artifactId>autograder-cmd</artifactId>
     <name>autograder-cmd</name>
     <description>CLI for the Autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-cmd</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-cmd</url>
 
     <properties>
         <picocli.version>4.7.7</picocli.version>

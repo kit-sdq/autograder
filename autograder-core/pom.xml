@@ -12,7 +12,7 @@
     <artifactId>autograder-core</artifactId>
     <name>autograder-core</name>
     <description>Core checks of the autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-core</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-core</url>
 
     <dependencies>
         <!-- Internal -->

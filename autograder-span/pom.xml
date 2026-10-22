@@ -12,7 +12,7 @@
     <artifactId>autograder-span</artifactId>
     <name>autograder-span</name>
     <description>Rendering of code with annotations as part of the Autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-span</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-span</url>
 
     <dependencies>
         <!-- Commons -->

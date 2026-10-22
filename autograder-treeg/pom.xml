@@ -12,5 +12,5 @@
     <artifactId>autograder-treeg</artifactId>
     <name>autograder-treeg</name>
     <description>Regex Parsing for the Autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-treeg</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-treeg</url>
 </project>

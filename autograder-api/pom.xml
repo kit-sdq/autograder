@@ -13,7 +13,7 @@
     <artifactId>autograder-api</artifactId>
     <name>autograder-api</name>
     <description>Frontend API for the autograder</description>
-    <url>https://github.com/kit-sdq/autograder/autograder-api</url>
+    <url>https://github.com/kit-sdq/autograder/tree/main/autograder-api</url>
 
     <dependencies>
         <dependency>

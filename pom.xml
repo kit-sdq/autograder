@@ -29,9 +29,11 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:git://github.com/kit-sdq/autograder.git</connection>
-        <developerConnection>scm:git:ssh://github.com:kit-sdq/autograder.git</developerConnection>
+    <scm child.scm.connection.inherit.append.path="false"
+         child.scm.developerConnection.inherit.append.path="false"
+         child.scm.url.inherit.append.path="false">
+        <connection>scm:git:https://github.com/kit-sdq/autograder.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/kit-sdq/autograder.git</developerConnection>
         <url>https://github.com/kit-sdq/autograder/tree/main</url>
     </scm>
 
