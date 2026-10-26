@@ -15,7 +15,7 @@
     <url>https://github.com/kit-sdq/autograder/tree/main/autograder-extra</url>
 
     <properties>
-        <surefire.version>3.6.0</surefire.version>
+        <surefire.version>3.6.1</surefire.version>
         <pmd.version>7.28.0</pmd.version>
     </properties>
 
