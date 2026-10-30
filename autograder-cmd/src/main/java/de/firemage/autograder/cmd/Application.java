@@ -64,7 +64,7 @@ public class Application implements Callable<Integer> {
 
     // TODO: remove this
     @Option(names = {
-            "--static-only"}, description = "Only kept here so the grading tool keeps working, does nothing.")
+            "--static-only"}, hidden = true, description = "Deprecated; does nothing.")
     private boolean staticOnly;
 
     @Option(names = {
